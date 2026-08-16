@@ -22,11 +22,13 @@ function deepClone(value) {
 export const state = {
   settings: {
     "cg-misc.damageAdvantageEnabled": true,
-    "cg-misc.damageAdvantageDefaultType": "necrotic",
+    "cg-misc.damageAdvantageGlobal": false,
+    "cg-misc.damageAdvantageTypes": "necrotic",
     "cg-misc.debug": false
   },
   speakerActor: null,
-  notifications: []
+  notifications: [],
+  messages: []
 };
 
 globalThis.foundry = { utils: { getProperty, deepClone } };
@@ -37,9 +39,13 @@ export const registered = new Map();
 /** Stands in for the module entry Foundry hands out, which is where the API is hung. */
 export const moduleEntry = { id: "cg-misc", active: true };
 
+export const gmUser = { isGM: true, name: "GM" };
+
 globalThis.game = {
   system: { id: "dnd5e" },
-  user: { isGM: true },
+  user: gmUser,
+  // The designated GM, which is how the settings onChange decides who announces the change.
+  users: { activeGM: gmUser },
   modules: { get: (id) => (id === "cg-misc" ? moduleEntry : undefined) },
   settings: {
     get(module, key) {
@@ -49,6 +55,11 @@ globalThis.game = {
     },
     register(module, key, data) {
       registered.set(`${module}.${key}`, data);
+    },
+    async set(module, key, value) {
+      state.settings[`${module}.${key}`] = value;
+      registered.get(`${module}.${key}`)?.onChange?.(value);
+      return value;
     }
   },
   i18n: {
@@ -64,7 +75,21 @@ globalThis.ui = {
   }
 };
 
-globalThis.ChatMessage = { getSpeakerActor: () => state.speakerActor };
+globalThis.ChatMessage = {
+  getSpeakerActor: () => state.speakerActor,
+  create: (data) => {
+    state.messages.push(data);
+    return data;
+  }
+};
+
+/** Scene controls, present only so the settings onChange can refresh the toggle. */
+globalThis.ui.controls = {
+  rendered: [],
+  render(options) {
+    this.rendered.push(options);
+  }
+};
 
 globalThis.CONST = {
   ACTIVE_EFFECT_MODES: { CUSTOM: 0, MULTIPLY: 1, ADD: 2, DOWNGRADE: 3, UPGRADE: 4, OVERRIDE: 5 }

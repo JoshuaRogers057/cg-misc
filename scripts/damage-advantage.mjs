@@ -67,16 +67,23 @@ function collectTypes(value, into = new Set()) {
   return into;
 }
 
+/** The types the world-wide switch is granting, or nothing when it is off. */
+export function getGlobalTypes() {
+  if (!game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_GLOBAL)) return new Set();
+  return collectTypes(game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_TYPES));
+}
+
 /**
- * Every damage type this actor currently has advantage on.
+ * Every damage type this actor currently has advantage on, from all three sources.
  *
- * Read from two places deliberately. `actor.flags` is where Foundry lands an applied Active
- * Effect change, and also where a direct `setFlag` writes - that covers the normal case and
- * costs nothing. Walking `appliedEffects` on top of it unions the values from several effects
- * granting different types, which a single OVERRIDE change cannot express on its own.
+ * The world switch applies to every actor and needs no actor at all, so it is collected
+ * first and an unresolvable actor still gets it. On top of that, `actor.flags` is where
+ * Foundry lands an applied Active Effect change and where a direct `setFlag` writes, and
+ * walking `appliedEffects` unions the values from several effects granting different types,
+ * which a single OVERRIDE change cannot express on its own.
  */
 export function getDamageAdvantageTypes(actor) {
-  const types = new Set();
+  const types = getGlobalTypes();
   if (!actor) return types;
 
   collectTypes(foundry.utils.getProperty(actor, DAMAGE_ADVANTAGE_KEY), types);
@@ -160,8 +167,9 @@ function onPostDamageRollConfiguration(rolls, config, dialog, message) {
     if (!game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_ENABLED)) return;
     if (!Array.isArray(rolls) || !rolls.length) return;
 
+    // Not bailing on an unresolvable actor: the world switch applies to everyone, so it must
+    // still fire for damage rolled outside an activity, where there is nobody to resolve.
     const actor = resolveActor(config, message);
-    if (!actor) return;
 
     const types = getDamageAdvantageTypes(actor);
     if (!types.size) return;
@@ -176,7 +184,7 @@ function onPostDamageRollConfiguration(rolls, config, dialog, message) {
       if (!advantageRoll) continue;
 
       rolls[index] = advantageRoll;
-      debugLog(`damage advantage: ${actor.name} rolling ${type} twice -`, advantageRoll.formula);
+      debugLog(`damage advantage: ${actor?.name ?? "unknown actor"} rolling ${type} twice -`, advantageRoll.formula);
     }
   } catch (err) {
     // A damage roll that fails to gain advantage is a far better outcome than one that never
@@ -191,6 +199,43 @@ function onPostDamageRollConfiguration(rolls, config, dialog, message) {
 /* -------------------------------------------- */
 /*  Public API                                  */
 /* -------------------------------------------- */
+
+/** The configured damage types, as written in settings. */
+function configuredTypes() {
+  return game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_TYPES);
+}
+
+/** Whether the world-wide switch is currently on. */
+export function isGlobal() {
+  return game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_GLOBAL) === true;
+}
+
+/**
+ * Turn the world-wide switch on or off. While on, every actor - PCs, NPCs and monsters alike
+ * - has advantage on the configured damage types, with no effect to add or remove.
+ *
+ * Writing a world setting is GM-only, and the setting's own onChange handles announcing the
+ * change and refreshing the scene control on every client.
+ * @param {boolean} [force]  Set explicitly instead of flipping.
+ * @returns {Promise<boolean|null>}  The new state, or null if it did nothing.
+ */
+export async function toggleGlobal(force) {
+  if (!game.user.isGM) {
+    ui.notifications?.warn(game.i18n.localize("CGM.DamageAdvantage.GMOnly"));
+    return null;
+  }
+
+  const value = typeof force === "boolean" ? force : !isGlobal();
+  await game.settings.set(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_GLOBAL, value);
+
+  // The master switch silently outranks this one, so flag the contradiction to whoever flipped
+  // it rather than leaving them to wonder why nothing changed.
+  if (value && !game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_ENABLED)) {
+    ui.notifications?.warn(game.i18n.localize("CGM.DamageAdvantage.AnnounceMasterOff"));
+  }
+
+  return value;
+}
 
 function resolveActorArg(actor) {
   if (actor instanceof Actor) return actor;
@@ -222,8 +267,7 @@ export async function toggle(actor, type) {
     return null;
   }
 
-  const damageType =
-    normalizeType(type) || normalizeType(game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_DEFAULT_TYPE));
+  const damageType = normalizeType(type) || [...collectTypes(configuredTypes())][0];
   if (!damageType) {
     ui.notifications?.warn(game.i18n.localize("CGM.DamageAdvantage.NoType"));
     return null;
@@ -299,4 +343,11 @@ export function registerDamageAdvantage() {
   Hooks.on("dnd5e.postDamageRollConfiguration", onPostDamageRollConfiguration);
 }
 
-export const damageAdvantageApi = { get, toggle, clear, key: DAMAGE_ADVANTAGE_KEY };
+export const damageAdvantageApi = {
+  toggleGlobal,
+  isGlobal,
+  get,
+  toggle,
+  clear,
+  key: DAMAGE_ADVANTAGE_KEY
+};

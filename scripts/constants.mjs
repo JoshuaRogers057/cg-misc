@@ -12,10 +12,17 @@ export const FLAG = {
 };
 
 export const SETTING = {
+  /** Master switch. Off means this module touches no roll at all. */
   DAMAGE_ADVANTAGE_ENABLED: "damageAdvantageEnabled",
-  DAMAGE_ADVANTAGE_DEFAULT_TYPE: "damageAdvantageDefaultType",
+  /** The world-wide switch: while on, every actor has advantage on TYPES. */
+  DAMAGE_ADVANTAGE_GLOBAL: "damageAdvantageGlobal",
+  /** Damage types the global switch grants, and the default for the per-actor toggle. */
+  DAMAGE_ADVANTAGE_TYPES: "damageAdvantageTypes",
   DEBUG: "debug"
 };
+
+/** Name of the scene-control toggle, also the key used to refresh its state. */
+export const TOOL_NAME = "cgMiscDamageAdvantage";
 
 /**
  * `flags.cg-misc.damageAdvantage` - the Active Effect change key. This is the string a GM

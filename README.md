@@ -18,11 +18,26 @@ damage type rather than to weapons, and with no once-per-turn limit.
 It applies to weapon attacks, spell attacks and saving-throw spells alike, and a character can
 hold advantage on several damage types at once. The default type is necrotic.
 
-The chat card shows the doubled formula, e.g. `{2d6 + 3, 2d6 + 3}kh`.
+#### The world switch (the usual way)
 
-#### Marking a character
+Click the **skull button in the token controls**. While it's lit, *every* actor in the world —
+player characters, NPCs and monsters alike — gets the doubled roll on the configured damage
+types. Nothing needs adding to anyone. Click it again to turn it off.
 
-Three routes, all equivalent — they all end at the same actor flag.
+Toggling either way posts a message to chat, so the whole table knows the rule is live. The
+same switch is in **Module Settings → Apply to Every Actor**, and from a macro:
+
+```js
+game.modules.get("cg-misc").api.toggleGlobal();
+```
+
+Which damage types it covers is **Module Settings → Damage Types** (default `necrotic`;
+comma-separate for several). GM only — the button is hidden from players.
+
+#### Marking one character instead
+
+If you want it on a single character rather than the whole world, three routes, all equivalent
+— they end at the same actor flag, and all of them stack with the world switch.
 
 **1. The compendium item.** Drag **Damage Advantage (Necrotic)** from the *CG Misc - Effects*
 compendium onto a character sheet. Its Active Effect transfers to the actor and applies
@@ -59,21 +74,27 @@ every client and survives a refresh. It leaves effects from any other source alo
 
 | Method | Returns | Notes |
 | --- | --- | --- |
-| `get(actor)` | `string[]` | Every type currently active, from all sources. |
-| `toggle(actor, type?)` | `Promise<string[]\|null>` | Flips one type. `null` if it did nothing. |
+| `toggleGlobal(force?)` | `Promise<boolean\|null>` | Flips the world switch. GM only; `null` if refused. |
+| `isGlobal()` | `boolean` | Whether the world switch is on. |
+| `get(actor)` | `string[]` | Every type active for that actor, world switch included. |
+| `toggle(actor, type?)` | `Promise<string[]\|null>` | Flips one type on one actor. `null` if it did nothing. |
 | `clear(actor)` | `Promise<boolean>` | Removes only the effect this module owns. |
 | `key` | `string` | `"flags.cg-misc.damageAdvantage"`. |
 
-`api.toggle` is aliased at the top level for brevity in macros. All three accept an `Actor`,
-`Token` or `TokenDocument`, and require ownership of the actor.
+`toggleGlobal` and `toggle` are aliased at the top level for brevity in macros. The per-actor
+methods accept an `Actor`, `Token` or `TokenDocument`, and require ownership of the actor.
 
 #### Settings
 
 | Setting | Default | |
 | --- | --- | --- |
-| Enable Damage Advantage | on | Turns the feature off without disabling the module. |
-| Default Damage Type | `necrotic` | Used when `toggle` is called without a type. |
+| Enable Damage Advantage | on | Master switch. Off stops the module touching any roll, per-actor effects included. |
+| Apply to Every Actor | off | The world switch. Same thing the skull button toggles. |
+| Damage Types | `necrotic` | Which types get the doubled roll. Comma-separate for several. |
 | Debug Logging | off | Logs every roll the module modifies. |
+
+The master switch outranks the world switch. Turning the world switch on while the master
+switch is off warns you rather than failing silently.
 
 #### How it works, and why it is built this way
 

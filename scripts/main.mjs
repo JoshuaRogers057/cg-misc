@@ -2,6 +2,7 @@ import { MODULE_ID, MODULE_TITLE } from "./constants.mjs";
 import { registerSettings } from "./settings.mjs";
 import { registerDamageAdvantage, damageAdvantageApi } from "./damage-advantage.mjs";
 import { registerDaeFields } from "./dae-integration.mjs";
+import { registerSceneControls } from "./scene-controls.mjs";
 
 // Registered at evaluation time on purpose - see registerDaeFields for the ordering reason.
 registerDaeFields();
@@ -13,11 +14,13 @@ Hooks.once("init", () => {
   // and are re-registered by the module loader on every page refresh. Nothing here needs a
   // macro to be run by hand.
   registerDamageAdvantage();
+  registerSceneControls();
 
   const mod = game.modules.get(MODULE_ID);
   mod.api = {
     damageAdvantage: damageAdvantageApi,
-    // Shorthand for hotbar macros, which are almost always toggling damage advantage.
+    // Shorthands for hotbar macros. The world switch is the one reached for at the table.
+    toggleGlobal: damageAdvantageApi.toggleGlobal,
     toggle: damageAdvantageApi.toggle
   };
 });

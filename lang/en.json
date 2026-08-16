@@ -1,14 +1,22 @@
 {
   "CGM.Settings.DamageAdvantageEnabled.Name": "Enable Damage Advantage",
-  "CGM.Settings.DamageAdvantageEnabled.Hint": "While a character is marked, their damage rolls of the marked type are rolled twice and the higher total is kept. Turn this off to disable the feature without disabling the module.",
-  "CGM.Settings.DamageAdvantageDefaultType.Name": "Default Damage Type",
-  "CGM.Settings.DamageAdvantageDefaultType.Hint": "The damage type used when the toggle macro is called without one. Any dnd5e damage type key, e.g. necrotic, radiant, fire.",
+  "CGM.Settings.DamageAdvantageEnabled.Hint": "Master switch. Turn this off to stop the module touching any roll, including per-character effects. Leave it on and use the switch below for normal play.",
+  "CGM.Settings.DamageAdvantageGlobal.Name": "Apply to Every Actor",
+  "CGM.Settings.DamageAdvantageGlobal.Hint": "While on, every actor in the world - player characters, NPCs and monsters alike - rolls the damage types below twice and keeps the higher total. No effect needs adding to anyone. Also toggleable from the skull button in the token controls.",
+  "CGM.Settings.DamageAdvantageTypes.Name": "Damage Types",
+  "CGM.Settings.DamageAdvantageTypes.Hint": "Which damage types get the doubled roll. Separate several with commas, e.g. necrotic,radiant. Any dnd5e damage type key.",
   "CGM.Settings.Debug.Name": "Debug Logging",
   "CGM.Settings.Debug.Hint": "Log each roll this module modifies to the console for troubleshooting.",
 
   "CGM.DamageAdvantage.EffectName": "Damage Advantage",
+  "CGM.DamageAdvantage.ToolTitle": "Toggle Damage Advantage (all actors)",
+  "CGM.DamageAdvantage.AnnounceOn": "Damage Advantage is ON",
+  "CGM.DamageAdvantage.AnnounceOnDetail": "Every actor now rolls {types} damage twice and keeps the higher total.",
+  "CGM.DamageAdvantage.AnnounceOff": "Damage Advantage is OFF",
+  "CGM.DamageAdvantage.AnnounceMasterOff": "The module's master switch is off, so nothing will actually change until it is turned back on in Module Settings.",
+  "CGM.DamageAdvantage.GMOnly": "Only a GM can change the world-wide damage advantage switch.",
   "CGM.DamageAdvantage.Error": "{module} failed to apply damage advantage to this roll. The roll itself is unaffected. See the console for details.",
   "CGM.DamageAdvantage.NoActor": "Select a token or pass an actor to toggle damage advantage.",
   "CGM.DamageAdvantage.NotOwner": "You do not have permission to change effects on {name}.",
-  "CGM.DamageAdvantage.NoType": "No damage type given, and no default type is configured."
+  "CGM.DamageAdvantage.NoType": "No damage type given, and no damage types are configured."
 }
