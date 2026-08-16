@@ -30,6 +30,7 @@ export const state = {
     "cg-misc.debug": false
   },
   speakerActor: null,
+  userTargets: [],
   notifications: [],
   messages: [],
   /** Tables the stub compendium serves, keyed by id, plus any "world" tables. */
@@ -125,7 +126,14 @@ export const registered = new Map();
 /** Stands in for the module entry Foundry hands out, which is where the API is hung. */
 export const moduleEntry = { id: "cg-misc", active: true };
 
-export const gmUser = { isGM: true, name: "GM" };
+export const gmUser = {
+  isGM: true,
+  name: "GM",
+  /** What the acting user has targeted, which is how healing results find their subject. */
+  get targets() {
+    return state.userTargets ?? [];
+  }
+};
 
 globalThis.game = {
   system: { id: "dnd5e" },
@@ -189,6 +197,55 @@ export class FakeRollTable {
     return { roll, results: hit };
   }
 }
+
+/** Everything the Dome's appliers did, so a test can assert on it without a real world. */
+export const applied = { effects: [], damage: [], healing: [], statuses: [], exhaustion: [], saves: [] };
+
+export function resetApplied() {
+  for (const key of Object.keys(applied)) applied[key].length = 0;
+}
+
+/** Actors the stub scene contains, used by findNearby. */
+export const scene = { nearby: [] };
+
+globalThis.MidiQOL = {
+  findNearby: (disposition, token, range) =>
+    scene.nearby
+      .filter((a) => a.uuid !== token?.actor?.uuid)
+      .filter((a) => (a.distance ?? 0) <= range)
+      .filter((a) => disposition === null || a.disposition === disposition)
+      .map((a) => ({ actor: a })),
+  createEffects: async ({ actorUuid, effects }) => {
+    applied.effects.push({ actorUuid, effects });
+    return true;
+  },
+  applyTokenDamage: async (detail, total, targets) => {
+    applied.damage.push({ total, type: detail[0]?.type, targets: targets.size });
+    return [];
+  }
+};
+
+globalThis.CONFIG = {
+  statusEffects: [
+    { id: "blind", name: "Blinded", img: "b.svg" },
+    { id: "frightened", name: "Frightened", img: "f.svg" },
+    { id: "prone", name: "Prone", img: "p.svg" }
+  ]
+};
+
+globalThis.Roll = Object.assign(
+  function Roll(formula) {
+    return {
+      formula,
+      async evaluate() {
+        // Deterministic: every die shows its face count, so totals are predictable in tests.
+        this.total = [...formula.matchAll(/(\d+)d(\d+)/g)].reduce((sum, m) => sum + Number(m[1]) * Number(m[2]), 0);
+        return this;
+      }
+    };
+  },
+  globalThis.Roll
+);
 
 globalThis.game.tables = state.worldTables;
 globalThis.game.packs = {

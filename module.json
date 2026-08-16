@@ -52,6 +52,22 @@
           "maximum": "5.3.99"
         }
       }
+    ],
+    "requires": [
+      {
+        "id": "midi-qol",
+        "type": "module",
+        "compatibility": {
+          "minimum": "13.0.0"
+        },
+        "reason": "The Dome's automated effects use midi-qol to apply damage through resistances, to create effects on actors the acting player does not own, and for the advantage/disadvantage flags dnd5e itself does not provide."
+      },
+      {
+        "id": "dae",
+        "type": "module",
+        "compatibility": {},
+        "reason": "Dome effects that last until the end of a turn rely on DAE special durations."
+      }
     ]
   },
   "compatibility": {

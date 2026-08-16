@@ -1,4 +1,5 @@
 import { MODULE_ID, MODULE_TITLE, SETTING, FLAG, PACK, DOME, DOME_TABLE_ID, debugLog } from "./constants.mjs";
+import { applyDomeResults } from "./dome-apply.mjs";
 
 /**
  * The Dome: while it is up, magic and rest inside it warp.
@@ -87,12 +88,25 @@ async function rollDomeTable(trigger, { actor, cause }) {
 
   debugLog(`dome: ${trigger} table rolled ${roll.total} for ${actor?.name ?? "unknown actor"} (${cause})`);
 
+  // Applied before the card is posted so that a failure here still shows the drawn result -
+  // the table roll happened either way, and the GM needs to see what it was.
+  let applied = "";
+  try {
+    applied = await applyDomeResults(trigger, results, actor);
+  } catch (err) {
+    console.error(`${MODULE_ID} | Rolled the ${trigger} table but could not apply the result`, err);
+    ui.notifications?.warn(game.i18n.format("CGM.Dome.ApplyFailed", { module: MODULE_TITLE }));
+  }
+
   await ChatMessage.create({
     speaker: ChatMessage.getSpeaker({ actor }),
     flavor: game.i18n.format("CGM.Dome.Flavor", { table: table.name, cause }),
-    content: `<div class="cg-misc-dome"><p>${text || game.i18n.localize("CGM.Dome.NoResult")}</p></div>`,
+    content:
+      `<div class="cg-misc-dome"><p>${text || game.i18n.localize("CGM.Dome.NoResult")}</p>`
+      + (applied ? `<p class="cg-misc-dome-applied"><em>${applied}</em></p>` : "")
+      + "</div>",
     rolls: [roll],
-    flags: { [MODULE_ID]: { dome: trigger } }
+    flags: { [MODULE_ID]: { dome: trigger, applied } }
   });
 
   return results;

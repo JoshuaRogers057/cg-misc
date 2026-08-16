@@ -34,6 +34,7 @@
   "CGM.Dome.NoResult": "The Dome stirs, but nothing comes of it.",
   "CGM.Dome.MissingTable": "{module} could not find the Dome's \"{trigger}\" table. Check that the module's compendium is available.",
   "CGM.Dome.Error": "{module} failed to roll on a Dome table. See the console for details.",
+  "CGM.Dome.ApplyFailed": "{module} rolled the Dome table but could not apply the result automatically. Apply it by hand. See the console for details.",
   "CGM.Dome.GMOnly": "Only a GM can raise or lower the Dome.",
   "CGM.DamageAdvantage.GMOnly": "Only a GM can change the world-wide damage switches.",
   "CGM.DamageAdvantage.Error": "{module} failed to apply damage advantage to this roll. The roll itself is unaffected. See the console for details.",

@@ -5,7 +5,13 @@ self-contained and can be turned off from the module settings without disabling 
 
 - **Foundry VTT** v13 (verified 13.351)
 - **dnd5e** 5.3.x
-- No dependency on midi-qol, DAE or socketlib. DAE is used if present, for its field browser.
+- **midi-qol** and **DAE** are required, but only by the Dome's automated effects. Damage
+  advantage and the minimum damage die use dnd5e's own hooks and work without either.
+
+Why midi is required: dnd5e has no advantage/disadvantage effect system of its own — the whole
+`flags.dnd5e.*` namespace contains one relevant key — so roughly 15 of the Dome's effects have
+nowhere else to live. midi also supplies GM-side effect creation and damage application through
+resistances, which is what lets a player's spell affect creatures they don't own.
 
 ## Features
 
@@ -137,6 +143,28 @@ their own mutation. Long rests do nothing.
 
 A spell that is both healing and necromancy — False Life, say — rolls **once**, on the healing
 table. Healing is checked first, matching the order the triggers are listed above.
+
+#### Automated effects
+
+Healing and necromancy results **apply themselves**. Of the 80 results across those two tables:
+
+| | Healing | Necromancy |
+| --- | --- | --- |
+| Cosmetic — text only | 6 | 18 |
+| **Automated** | **31** | **17** |
+| Text only (see below) | 3 | 5 |
+
+Effects, damage, healing, conditions and exhaustion are applied automatically. Necromancy area
+results find every creature in range and damage them through resistances and immunities. Saving
+throws are rolled for each target, and only the failures are affected. A healing result lands on
+whoever was targeted when the spell was cast, falling back to the caster.
+
+The card reports what was applied underneath the result text, so it's always visible what the
+Dome did.
+
+**Eight results are text only** — a skipped turn, "the next spell needs no components", "the next
+time it would drop to 0 hit points". Foundry has no mechanism for these, so the card states them
+and the table applies them.
 
 #### Customising the tables
 
