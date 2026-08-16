@@ -15,9 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 24 to match local development. The test script relies on Node expanding the glob in
+      # `--test "test/*.test.mjs"` itself, which needs >= 22.6; pinning avoids that question.
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Test
         run: npm test
