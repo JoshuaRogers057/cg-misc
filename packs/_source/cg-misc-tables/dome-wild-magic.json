@@ -1,0 +1,1421 @@
+{
+  "_id": "cgmiscdometbl001",
+  "name": "The Dome: Wild Magic",
+  "img": "icons/svg/d20-grey.svg",
+  "description": "Rolled when a leveled spell that is neither necromancy nor healing is cast while the Dome is active.",
+  "results": [
+    {
+      "_id": "BWvU5FKRVhHkSuhN",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You and every ally within 30 feet of you gain the effects of the Bless spell for 1 minute. This effect requires no Concentration.",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "FnNxHREGk8tmMqSm",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You age 2d20 years instantly. This aging is permanent.",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "McUHhMb2jIAafdWr",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your footsteps echo loudly for 1d4 hours. You have Disadvantage on Dexterity (Stealth) checks for the duration.",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "CgI1X9pi05fo2c4n",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your lungs temporarily collapse. For 1d6 rounds, you cannot speak or provide Verbal components for spells.",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "q3jQBwkdb1b3K5II",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A ghostly echo of yourself appears and follows you for 1 minute, relentlessly mocking you and criticizing every choice you make. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "SCpD0nJctJ610J6x",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You age 2d20 years instantly. This aging is permanent.",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "AvHH7nhuGymnVwbE",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your eyes shift colors randomly every few seconds for 1 hour. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "IYPJxL1Ag5lkHPHJ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your shadow acts independently for 1 hour but cannot interact with creatures or objects. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "pqEdntKeU8dwTRTU",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "One random nonmagical weapon or piece of armor you are carrying or wearing corrodes into useless slag. If you have none, nothing happens.",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Q39hAulv7wvAmaHr",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A black brand appears on your forehead for 1 month. During that time, fiends within 1 mile of you automatically know your direction and distance from them.",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "IxKmrV9sXxfAqNEg",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "All your worn and carried belongings levitate a few inches around you for 1 minute. This does not affect your movement or use of those items. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        11,
+        11
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "l5E6DR29uTka21nP",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You sneeze a cloud of glittering dust. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        12,
+        12
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ZpiQ5OCVVuQeoGvQ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You float 3 inches above the ground for 1 hour. This does not change your Speed or movement. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "kqCBF7Y9dlpa7XKA",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 10 minutes, all your spoken words come out as song. This does not interfere with speech or Verbal spell components. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        14,
+        14
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "cPp1Cm1s0uKbuOi0",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your breath becomes visible fog for 24 hours, regardless of temperature. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        15,
+        15
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "frRj7RUSa4V3VAPN",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your heart stops for 1 round before restarting. You are Stunned until the start of your next turn.",
+      "weight": 1,
+      "range": [
+        16,
+        16
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "wcYbqCOgE3rNSQe1",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A massive spectral hand slaps you. You are knocked Prone.",
+      "weight": 1,
+      "range": [
+        17,
+        17
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "nS8gkXwJVr7WSfmF",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 1d4 rounds, you cannot cast spells.",
+      "weight": 1,
+      "range": [
+        18,
+        18
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ISLc0V4jbpqCKzD0",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your feet sink 6 inches into the ground. You are Restrained until the end of your next turn.",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "bQMZ1ze75wW8uNz3",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You regain 1d6 Hit Points.",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "FwF199TA3qgvq4ZG",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your reflection waves at you whenever you see it for the next 24 hours. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        21,
+        21
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "QjaXxb0Ug3yJ2yXh",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A swarm of spectral insects pours from your mouth for 1 minute. You cannot speak or provide Verbal components for the duration.",
+      "weight": 1,
+      "range": [
+        22,
+        22
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "kggY2LGN1EzOqh5b",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 1 minute, whenever you speak, your voice becomes a supernatural scream audible out to 300 feet. You and every creature within 10 feet of you are Deafened until the start of your next turn each time you speak.",
+      "weight": 1,
+      "range": [
+        23,
+        23
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "gdz0Q50J0DTRM9pn",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "All unattended nonmagical liquids within 10 feet of you freeze solid instantly. Liquids inside creatures are unaffected.",
+      "weight": 1,
+      "range": [
+        24,
+        24
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "UI0b1tnAqaCpKVl4",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your clothes catch fire. At the start of each of your turns, you take 1d6 Fire damage until you or a creature within 5 feet of you uses an action to extinguish the flames.",
+      "weight": 1,
+      "range": [
+        25,
+        25
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "6Hq0kgG8WILVSJ1i",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A random creature within 30 feet sneezes uncontrollably for 1 round. This does not interfere with its actions, speech, or spellcasting. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        26,
+        26
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "7RM36dbWl5CBlE3c",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You are filled with supernatural confidence. You have Advantage on your next Charisma check made within 1 hour.",
+      "weight": 1,
+      "range": [
+        27,
+        27
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "RJw2YUcskznWSpf2",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Sticky tar spreads beneath your feet. Your Speed is halved until the end of your next turn.",
+      "weight": 1,
+      "range": [
+        28,
+        28
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "9XqtvJER0QAeD6VH",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Stone rapidly covers your body. You are Restrained until you use an action to break the stone away.",
+      "weight": 1,
+      "range": [
+        29,
+        29
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "RaWwj4CM4d9jH3gS",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your hair writhes as though alive for 1 hour. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        30,
+        30
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "COKW28Ya7KIdozMO",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You age 2d20 years instantly. This aging is permanent.",
+      "weight": 1,
+      "range": [
+        31,
+        31
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "oLr3dljnY05OsVJi",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You immediately drop everything you are holding. You cannot pick up any of those dropped objects until the start of your next turn.",
+      "weight": 1,
+      "range": [
+        32,
+        32
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "mzQ7xq0DS5Vd4eXk",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your fingernails instantly grow 6 inches long. This does not affect attacks or Dexterity checks. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        33,
+        33
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "BNzUofpDlYZU20hX",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You gain Truesight out to 60 feet for 1 minute.",
+      "weight": 1,
+      "range": [
+        34,
+        34
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "HV3zqJRLWylG9w12",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your hands emit harmless smoke for 1d6 minutes. The smoke does not obscure vision. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        35,
+        35
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "kECwckKZRxnNXCb9",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You sprout spectral wings for 1 minute and gain a Fly Speed equal to your Speed.",
+      "weight": 1,
+      "range": [
+        36,
+        36
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "U3sDF9H2HJe91dqT",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your eyes glow for 1 hour, shedding Bright Light in a 30-foot radius and Dim Light for an additional 30 feet.",
+      "weight": 1,
+      "range": [
+        37,
+        37
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "sDVtKmFRZbhJDDV9",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You can breathe underwater for 24 hours.",
+      "weight": 1,
+      "range": [
+        38,
+        38
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "39gmzHBDhfR2SopD",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The next spell cast within 30 feet of you erupts in a dazzling light show that has no effect on the spell. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        39,
+        39
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "NIKe8Mmb7kilfM54",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Butterflies swarm around you for 1 minute. They do not obscure vision or interfere with actions. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        40,
+        40
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "3A31UDt1ontFygNW",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You gain Resistance to Acid damage for 1 hour.",
+      "weight": 1,
+      "range": [
+        41,
+        41
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Ku9oG01f8DJjfQ7t",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The smell of ozone clings to you for 1d4 days. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        42,
+        42
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "24amfXGJjRBx3cId",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A faint angelic choir echoes around you for 1 minute. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        43,
+        43
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "GN3xe9KYZHNu0MEa",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You are hurled 30 feet straight upward. If nothing stops you, you fall normally.",
+      "weight": 1,
+      "range": [
+        44,
+        44
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "gt8r33d5BhQwqdNT",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You are affected by the Levitate spell for 1 minute. This requires no Concentration.",
+      "weight": 1,
+      "range": [
+        45,
+        45
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Vm3yKm9qbK8wTBZ8",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 1 hour, you constantly feel as though you are being watched. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        46,
+        46
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "6qnx62hV2aTflhm6",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A halo of fireflies follows you for 24 hours. They shed no mechanically significant light. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        47,
+        47
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "PNnJosa1EO8GBKAS",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A ghostly child's cries echo in the distance for 1 hour, calling to you for help. Only you can hear them. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        48,
+        48
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Fgj7yL9VszWHgguC",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A random unattended object within 30 feet animates and dances for 1 minute. It cannot move from its space or take actions. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        49,
+        49
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "FZps1gSdtHzNS95q",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your wounds close instantly. You regain 1d8 Hit Points.",
+      "weight": 1,
+      "range": [
+        50,
+        50
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "IWE9XQLgPOTIFkoB",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You smell strongly of brimstone for 1d4 days. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        51,
+        51
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "nefGsg8UAw36ieZY",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You age 2d20 years instantly. This aging is permanent.",
+      "weight": 1,
+      "range": [
+        52,
+        52
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "vSsnMMWOIglM4Uog",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Every condition currently affecting you ends immediately.",
+      "weight": 1,
+      "range": [
+        53,
+        53
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "TVW00YMruFA743bk",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A small harmless illusion of a dragon hovers above your head for 1 hour. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        54,
+        54
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "peRI9ERG3EJRWnMC",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You gain Heroic Inspiration.",
+      "weight": 1,
+      "range": [
+        55,
+        55
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "BdvEpVMUYZ4sME9n",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your shadow moves 2 seconds behind you for 1 hour. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        56,
+        56
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "lvBuDRFmdh2zGb7V",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "All food and drink on your person becomes perfectly fresh, safe to consume, and delicious.",
+      "weight": 1,
+      "range": [
+        57,
+        57
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "VZxHL0eHkedfkRkV",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your mouth fills with acid. You take 2d6 Acid damage.",
+      "weight": 1,
+      "range": [
+        58,
+        58
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "VXuiorJGRtkJtlQk",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Flowers sprout wherever you step for 1 hour. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        59,
+        59
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ZiB1aNaZW1iOiCDl",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The sound of distant drums follows you for 24 hours. Only you can hear them. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        60,
+        60
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dBZEKy2N77SfcyQD",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 1 minute, you shed Bright Light in a 20-foot radius and Dim Light for an additional 20 feet. You cannot take the Hide action during this time.",
+      "weight": 1,
+      "range": [
+        61,
+        61
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "n3jTrKh3UHQuwDB0",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your voice becomes three overlapping whispers for 1 hour. This does not interfere with speech or Verbal spell components. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        62,
+        62
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "5Jw1hwQqO2AK0hbH",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your skin is covered in blinking eyes for 1 minute. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        63,
+        63
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "EZiKsVPiuT7pcc8O",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Glowing runes appear across your skin for 1 hour. They shed no mechanically significant light. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        64,
+        64
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dZFrHsdhBJ8dBYYM",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Every coin you are carrying melts and fuses into a single lump of metal.",
+      "weight": 1,
+      "range": [
+        65,
+        65
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "VpAlJ4JQtFpNhRTF",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your body collapses into dust and vanishes for 5 rounds. While gone, you cannot act, move, or be targeted. At the end of the fifth round, you reform in your previous space, or the nearest unoccupied space, with 1 Hit Point.",
+      "weight": 1,
+      "range": [
+        66,
+        66
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ujAxfcbf46ABUtTy",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your teeth permanently turn to crystal. This does not alter your bite, speech, or ability to eat. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        67,
+        67
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "uM2BFaBP131PpiuB",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 1 hour, your voice echoes again 5 seconds after you speak. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        68,
+        68
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "2TqpAdEk3KFbAA79",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A glowing sigil appears on your chest for 1 minute. Allies within 30 feet of you have Advantage on saving throws; you do not gain this benefit.",
+      "weight": 1,
+      "range": [
+        69,
+        69
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "95UYkI20PgSAnUWk",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A terrifying scream echoes in your ears for 1 minute. Only you can hear it, and it has no mechanical effect. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        70,
+        70
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Mker4P4rHwYtCdr2",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your shadow stretches 30 feet longer than normal for 1 hour. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        71,
+        71
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dTBoV533bmp8wSd4",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A loud bell tolls from nowhere. It can be heard by every creature within 300 feet.",
+      "weight": 1,
+      "range": [
+        72,
+        72
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "tVJZaNLZSahMJEWO",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A shimmering shield surrounds you. You have Resistance to all damage until the start of your next turn.",
+      "weight": 1,
+      "range": [
+        73,
+        73
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "5nlo9IcKbJ59AN32",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You vanish into the ground until the start of your next turn. While gone, you cannot act, move, or be targeted. You then reappear in your previous space or the nearest unoccupied space.",
+      "weight": 1,
+      "range": [
+        74,
+        74
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "2TOMrr4PLmPjBq9h",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You age 2d20 years instantly. This aging is permanent.",
+      "weight": 1,
+      "range": [
+        75,
+        75
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "eriuVBcTMFPbTZya",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You forget your own name for 1d4 hours. You can still recognize yourself and remember everything else. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        76,
+        76
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "QhzsaXYhQQRk0jrR",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A violent gust erupts from you. Every other creature within 30 feet of you is knocked Prone.",
+      "weight": 1,
+      "range": [
+        77,
+        77
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "eoN1mJCk9i2jFwju",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You regain one expended 1st-level spell slot. If you have no expended 1st-level spell slots, nothing happens.",
+      "weight": 1,
+      "range": [
+        78,
+        78
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "DvNbA7Ra1d7kMOrH",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 10 minutes, all writing within 20 feet of you appears scrambled and unreadable, including spellbooks and scrolls. The writing is not damaged and returns to normal when the effect ends.",
+      "weight": 1,
+      "range": [
+        79,
+        79
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "7MTZ5XF7SjTocXgv",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "All your hair, fur, or feathers fall out instantly. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        80,
+        80
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "zeQIzg89sMVWTQoa",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You intensely crave soil or stone for 1d4 hours. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        81,
+        81
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "SHtzQfduf5FVwt8E",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You age 2d20 years instantly. This aging is permanent.",
+      "weight": 1,
+      "range": [
+        82,
+        82
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "jX8s0OrkGqSgpKlx",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You taste copper and blood for 1 hour. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        83,
+        83
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "kmlhAat2qSCJbm6S",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Two inches of thick hair grow from each of your nostrils. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        84,
+        84
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "SRcVCyp7qGc9orF1",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You fall Unconscious for 1 minute. Taking damage wakes you normally.",
+      "weight": 1,
+      "range": [
+        85,
+        85
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "MDgh27ebnKDPEj1O",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "All Beasts within 30 feet suddenly stare at you for 1 minute but otherwise behave normally. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        86,
+        86
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "5yZVo1a9Bhf7LFQw",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 10 minutes, every language you speak is heard as Dwarvish. Creatures that do not understand Dwarvish cannot understand your speech.",
+      "weight": 1,
+      "range": [
+        87,
+        87
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "3JO6B2T7yOXBpma6",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 1 minute, the weight of any armor you are wearing doubles and your Speed is reduced by 10 feet. If you are not wearing armor, this result has no effect.",
+      "weight": 1,
+      "range": [
+        88,
+        88
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "tG7DmRXepICCQwVc",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your tongue elongates to 2 feet long until the end of your next turn. During this time, you cannot speak or provide Verbal components for spells.",
+      "weight": 1,
+      "range": [
+        89,
+        89
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "SaqfMj7f4I8jKfu2",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your shadow grows teeth for 1 minute. When a creature within 5 feet of you willingly moves away from you, your shadow makes an opportunity attack against it: +5 to hit, 1d4 Necrotic damage on a hit.",
+      "weight": 1,
+      "range": [
+        90,
+        90
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "sKFiHRM0sa0gpKZg",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A bright mote of light hovers over your shoulder for 1 hour. It sheds no mechanically significant light. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        91,
+        91
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "o8HZVXojdxaqZPIK",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Black lightning strikes you. You are Blinded until you finish a Long Rest.",
+      "weight": 1,
+      "range": [
+        92,
+        92
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Ukuo2DLufMknYG5T",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your weapon hums with energy until the end of your next turn. The next time you hit with a weapon before then, roll the attack's damage dice twice and add modifiers once.",
+      "weight": 1,
+      "range": [
+        93,
+        93
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "OmVYES7Lf3vEx4fQ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The next attack roll you make within 1 hour automatically hits and is a Critical Hit.",
+      "weight": 1,
+      "range": [
+        94,
+        94
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "fiSgUvlu0ld2KVv1",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You erupt with necrotic energy. You and every other creature within 15 feet of you take 2d10 Necrotic damage.",
+      "weight": 1,
+      "range": [
+        95,
+        95
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "YReDMAO3DIUb7FAN",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You are compelled to dance until the end of your next turn. Until then, your Speed is 0 and you cannot take Reactions.",
+      "weight": 1,
+      "range": [
+        96,
+        96
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dixX4XjhUJZ2RzLm",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You immediately regain all missing Hit Points and gain 1 Exhaustion level.",
+      "weight": 1,
+      "range": [
+        97,
+        97
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "HD1dO4Zr9jGsvQEF",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A random creature within 30 feet of you takes 1d10 Fire damage. If no other creature is within 30 feet, you take the damage instead.",
+      "weight": 1,
+      "range": [
+        98,
+        98
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dJOsGeTV9MXv4PCl",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A chill mist surrounds you for 1 minute. It does not obscure vision. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        99,
+        99
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "4HVLIrrsKzDRenOM",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "For 1 hour, you hear whispers warning you not to look behind you. Only you can hear them. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        100,
+        100
+      ],
+      "drawn": false,
+      "flags": {}
+    }
+  ],
+  "formula": "1d100",
+  "replacement": true,
+  "displayRoll": true,
+  "folder": null,
+  "sort": 0,
+  "flags": {
+    "cg-misc": {
+      "domeTable": "wild"
+    }
+  },
+  "ownership": {
+    "default": 2
+  }
+}

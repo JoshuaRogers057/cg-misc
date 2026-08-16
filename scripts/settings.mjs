@@ -49,6 +49,16 @@ export function registerSettings() {
     range: { min: 2, max: 10, step: 1 }
   });
 
+  game.settings.register(MODULE_ID, SETTING.DOME, {
+    name: "CGM.Settings.Dome.Name",
+    hint: "CGM.Settings.Dome.Hint",
+    scope: "world",
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange: (value) => onSwitchChanged(TOOL.DOME, value)
+  });
+
   game.settings.register(MODULE_ID, SETTING.DEBUG, {
     name: "CGM.Settings.Debug.Name",
     hint: "CGM.Settings.Debug.Hint",
@@ -72,28 +82,37 @@ function onSwitchChanged(tool, value) {
 
   const types = game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_TYPES);
   const minimum = game.settings.get(MODULE_ID, SETTING.DAMAGE_MINIMUM_VALUE);
-  const advantage = tool === TOOL.ADVANTAGE;
 
-  const heading = game.i18n.localize(
-    advantage
-      ? value ? "CGM.DamageAdvantage.AnnounceOn" : "CGM.DamageAdvantage.AnnounceOff"
-      : value ? "CGM.DamageMinimum.AnnounceOn" : "CGM.DamageMinimum.AnnounceOff"
-  );
+  const announcement = {
+    [TOOL.ADVANTAGE]: {
+      prefix: "CGM.DamageAdvantage",
+      detail: () => game.i18n.format("CGM.DamageAdvantage.AnnounceOnDetail", { types })
+    },
+    [TOOL.MINIMUM]: {
+      prefix: "CGM.DamageMinimum",
+      detail: () => game.i18n.format("CGM.DamageMinimum.AnnounceOnDetail", { types, minimum, below: minimum - 1 })
+    },
+    [TOOL.DOME]: {
+      prefix: "CGM.Dome",
+      detail: () => game.i18n.localize("CGM.Dome.AnnounceOnDetail")
+    }
+  }[tool];
+  if (!announcement) return;
 
+  const heading = game.i18n.localize(`${announcement.prefix}.${value ? "AnnounceOn" : "AnnounceOff"}`);
   let content = `<p><strong>${heading}</strong></p>`;
-  if (value) {
-    content += `<p>${
-      advantage
-        ? game.i18n.format("CGM.DamageAdvantage.AnnounceOnDetail", { types })
-        : game.i18n.format("CGM.DamageMinimum.AnnounceOnDetail", { types, minimum, below: minimum - 1 })
-    }</p>`;
-  }
+  if (value) content += `<p>${announcement.detail()}</p>`;
 
-  // Switching an enhancement on while the master switch is off looks broken and is easy to do
-  // by accident, so say so in the same breath rather than letting it fail quietly.
-  if (value && !game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_ENABLED)) {
+  // The damage master switch outranks the two damage switches. Turning one on while it is off
+  // looks broken and is easy to do by accident, so say so in the same breath. The Dome is
+  // independent of it, so it is deliberately exempt from this warning.
+  const damageSwitch = tool === TOOL.ADVANTAGE || tool === TOOL.MINIMUM;
+  if (value && damageSwitch && !game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_ENABLED)) {
     content += `<p><em>${game.i18n.localize("CGM.DamageAdvantage.AnnounceMasterOff")}</em></p>`;
   }
 
-  ChatMessage.create({ content, speaker: { alias: game.i18n.localize("CGM.DamageAdvantage.EffectName") } });
+  ChatMessage.create({
+    content,
+    speaker: { alias: game.i18n.localize(tool === TOOL.DOME ? "CGM.Dome.Name" : "CGM.DamageAdvantage.EffectName") }
+  });
 }

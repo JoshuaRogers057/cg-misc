@@ -1,0 +1,581 @@
+{
+  "_id": "cgmiscdometbl003",
+  "name": "The Dome: Healing",
+  "img": "icons/svg/d20-grey.svg",
+  "description": "Rolled when a leveled healing spell is cast while the Dome is active.",
+  "results": [
+    {
+      "_id": "89KtRcT5elUyLahg",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The wound closes with burning pain. The healed creature has Disadvantage on Concentration checks for 1 minute.",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "sFbReEjmdEnQtHb0",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature coughs blood and bile for 1d4 rounds and cannot speak or provide Verbal spell components.",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "D91FT3MNlMeaQ22c",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Old scars reopen and begin faintly weeping blood. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "zq38gDgR8SGcDCCA",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The wound seals beneath brittle crystalline flesh. The healed creature has Vulnerability to Bludgeoning damage for 1 minute.",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "p7rdHvYUD0cKhWFv",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Ice floods the healed creature's veins. Its Speed is reduced by 10 feet for 1 minute.",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "X5mOf2OHoxk73PvC",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Healing energy surges unexpectedly. The healed creature regains an additional 1d8 Hit Points.",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "uUSZmaB6QWdcpS5h",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The flesh around the wound blackens and becomes completely numb. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "d3Y5vS0tpQdZJhs0",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's vision blurs. It has Disadvantage on Wisdom (Perception) checks for 10 minutes.",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "f7TKvIGk0ydnJaai",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's body temperature violently alternates between burning and freezing. It has Disadvantage on Constitution saving throws for 1 minute.",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "RAqqBC9TGFeZzYZL",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature vomits violently and skips its next turn.",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "TcsYiTuwnofLiQjf",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature is racked with violent shivers. Its Speed is halved until the end of its next turn.",
+      "weight": 1,
+      "range": [
+        11,
+        11
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "WJa7HdrFODYafume",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature cannot inhale properly. Until the end of its next turn, it cannot speak or provide Verbal components for spells.",
+      "weight": 1,
+      "range": [
+        12,
+        12
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "RFgiFEvsDAc2yhay",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A spectral parasite briefly tears itself from the wound before vanishing. The healed creature takes 1d4 Psychic damage.",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "7mjgEdo1NiRrxJlh",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Phantom hands seem to drag the healed creature downward. Its Speed is halved for 1 minute.",
+      "weight": 1,
+      "range": [
+        14,
+        14
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "PnSOQGvP0OWiNkfM",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature begins twitching uncontrollably and has Disadvantage on Dexterity saving throws for 1 minute.",
+      "weight": 1,
+      "range": [
+        15,
+        15
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "0bSXCu9OSKzLG539",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A shimmering layer of healing energy remains around the creature. It has Resistance to all damage until the start of its next turn.",
+      "weight": 1,
+      "range": [
+        16,
+        16
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "fWV9xp1KLoOm4LqA",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature feels sickly and gains 1 level of Exhaustion.",
+      "weight": 1,
+      "range": [
+        17,
+        17
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "sOGy2iBUuGgNZaIx",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's eyes roll backward. It is Blinded until the end of its next turn.",
+      "weight": 1,
+      "range": [
+        18,
+        18
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "0DBeNvLtlvRvrar6",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's veins swell painfully. Any Hit Points it regains during the next minute are halved.",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "xKitS3VcaCWNq4ba",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature erupts in painful light. It and every creature within 10 feet have Disadvantage on their next attack roll.",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "etswr7HQ8kAcAzAO",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature begins sneezing harmless sparks and embers. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        21,
+        21
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "oYpjbePoj6l4hJ72",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The creature's shadow thickens and clings to its body. Its Speed is reduced by 10 feet and it cannot Dash for 1 minute.",
+      "weight": 1,
+      "range": [
+        22,
+        22
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "8rmkxH3kdekU7Cw9",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Blood begins slowly seeping from the healed creature's pores. Its Speed is halved for 1 minute.",
+      "weight": 1,
+      "range": [
+        23,
+        23
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "mR8ZJ1Bb3KrgHHPB",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's voice becomes a harsh croak. It has Disadvantage on its next Charisma check made within 1 hour.",
+      "weight": 1,
+      "range": [
+        24,
+        24
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "PScKsxFhvEH28TJ7",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's skin becomes painfully thin. It gains Vulnerability to Bludgeoning damage until the start of its next turn.",
+      "weight": 1,
+      "range": [
+        25,
+        25
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "NfmwqHsa2hpWCwXR",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The wound heals into a thick, raised black scar that feels unnaturally hot to the touch. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        26,
+        26
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Rt8gZtz5Ixjdkugm",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The newly healed flesh writhes beneath the skin. The creature has Disadvantage on Concentration checks for 1 minute.",
+      "weight": 1,
+      "range": [
+        27,
+        27
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "IrW8V22JZ38Bn8rV",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature develops a violent nervous stutter and has Disadvantage on its next Charisma check.",
+      "weight": 1,
+      "range": [
+        28,
+        28
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "AwrPWZ9gSYShqfcZ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The wound closes with the overwhelming smell of burning flesh. The healed creature has Disadvantage on Dexterity (Stealth) checks for 1 hour.",
+      "weight": 1,
+      "range": [
+        29,
+        29
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "6byFypfW3XN8cwzC",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's blood becomes thick and tar-like. It has Disadvantage on its next Initiative roll made within 1 hour.",
+      "weight": 1,
+      "range": [
+        30,
+        30
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "fFAMeZz00fcyRBWJ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's muscles suddenly seize. It cannot take Reactions until the end of its next turn.",
+      "weight": 1,
+      "range": [
+        31,
+        31
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ddAUC5o5qaKXYqwa",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A faint aura of vitality surrounds the healed creature. The next time it would be reduced to 0 Hit Points within 1 minute, it is reduced to 1 Hit Point instead.",
+      "weight": 1,
+      "range": [
+        32,
+        32
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "l8uD22uhVShEXeFH",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's shadow depicts a grotesque monstrous version of itself. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        33,
+        33
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "j7dXBewILimFy6qm",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's heartbeat becomes unnaturally loud. It has Disadvantage on Dexterity (Stealth) checks for 1 hour.",
+      "weight": 1,
+      "range": [
+        34,
+        34
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "qV4YW2b7KFRnEdwx",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The wound hardens like stone. The healed creature has Disadvantage on its next Dexterity saving throw.",
+      "weight": 1,
+      "range": [
+        35,
+        35
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "qGVKkzHCLrJWWxOU",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature coughs up a small wriggling slug that immediately dies. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        36,
+        36
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Y0amKAFODADxQ2Vc",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healed creature's pupils fully dilate. It has Disadvantage on attack rolls while in Bright Light until the end of its next turn.",
+      "weight": 1,
+      "range": [
+        37,
+        37
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ZQuR62WGYUMAjo8q",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Blood pours from the healed creature's eyes whenever it blinks. It has Disadvantage on Wisdom (Perception) checks for 1d4 rounds.",
+      "weight": 1,
+      "range": [
+        38,
+        38
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "gA2OtXISdHTqHyqR",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The healing violently overstimulates the creature's nerves. It takes 1d6 Lightning damage and cannot take Reactions until the start of its next turn.",
+      "weight": 1,
+      "range": [
+        39,
+        39
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "hmRvskUfTGDCfp9w",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Healing energy briefly sharpens the creature's instincts. It has Advantage on its next saving throw made within 1 minute.",
+      "weight": 1,
+      "range": [
+        40,
+        40
+      ],
+      "drawn": false,
+      "flags": {}
+    }
+  ],
+  "formula": "1d40",
+  "replacement": true,
+  "displayRoll": true,
+  "folder": null,
+  "sort": 200,
+  "flags": {
+    "cg-misc": {
+      "domeTable": "healing"
+    }
+  },
+  "ownership": {
+    "default": 2
+  }
+}

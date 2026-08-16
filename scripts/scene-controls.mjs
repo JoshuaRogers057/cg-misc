@@ -22,6 +22,12 @@ const TOGGLES = [
     title: "CGM.DamageMinimum.ToolTitle",
     icon: "fa-solid fa-dice-d6",
     setting: SETTING.DAMAGE_MINIMUM
+  },
+  {
+    name: TOOL.DOME,
+    title: "CGM.Dome.ToolTitle",
+    icon: "fa-solid fa-circle-half-stroke",
+    setting: SETTING.DOME
   }
 ];
 

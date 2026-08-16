@@ -26,11 +26,15 @@ export const state = {
     "cg-misc.damageAdvantageTypes": "necrotic",
     "cg-misc.damageMinimum": false,
     "cg-misc.damageMinimumValue": 3,
+    "cg-misc.dome": false,
     "cg-misc.debug": false
   },
   speakerActor: null,
   notifications: [],
-  messages: []
+  messages: [],
+  /** Tables the stub compendium serves, keyed by id, plus any "world" tables. */
+  packTables: new Map(),
+  worldTables: []
 };
 
 /* -------------------------------------------- */
@@ -159,10 +163,39 @@ globalThis.ui = {
 
 globalThis.ChatMessage = {
   getSpeakerActor: () => state.speakerActor,
+  getSpeaker: ({ actor } = {}) => ({ actor: actor?.id ?? null, alias: actor?.name ?? null }),
   create: (data) => {
     state.messages.push(data);
     return data;
   }
+};
+
+/**
+ * A RollTable that always lands on a chosen face, so a test can assert on the posted result
+ * without depending on chance.
+ */
+export class FakeRollTable {
+  constructor({ id, name, flags = {}, results = [], total = 1 }) {
+    Object.assign(this, { id, name, flags, results, total });
+  }
+
+  getFlag(scope, key) {
+    return this.flags?.[scope]?.[key];
+  }
+
+  async roll() {
+    const roll = { total: this.total, formula: "1d100" };
+    const hit = this.results.filter((r) => this.total >= r.range[0] && this.total <= r.range[1]);
+    return { roll, results: hit };
+  }
+}
+
+globalThis.game.tables = state.worldTables;
+globalThis.game.packs = {
+  get: (id) =>
+    id === "cg-misc.cg-misc-tables"
+      ? { getDocument: async (docId) => state.packTables.get(docId) ?? null }
+      : undefined
 };
 
 /** Scene controls, present only so the settings onChange can refresh the toggle. */

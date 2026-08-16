@@ -8,7 +8,31 @@ export const FLAG = {
   /** On an ActiveEffect: marks the effect the API owns, so toggle() can find it again. */
   DAMAGE_ADVANTAGE_MARKER: "damageAdvantageMarker",
   /** On a Roll's options: marks a roll this module already wrapped, so it never wraps twice. */
-  WRAPPED: "wrapped"
+  WRAPPED: "wrapped",
+  /** On a RollTable: which Dome trigger it answers to. Lets a world table override the module's. */
+  DOME_TABLE: "domeTable"
+};
+
+/** Compendium packs this module ships, without the module id prefix. */
+export const PACK = {
+  EFFECTS: "cg-misc-effects",
+  TABLES: "cg-misc-tables"
+};
+
+/** The Dome's four triggers. These strings are the flag values, so they are public surface. */
+export const DOME = {
+  HEALING: "healing",
+  NECROMANCY: "necromancy",
+  WILD: "wild",
+  REST: "rest"
+};
+
+/** Ids of the shipped tables, so they can be fetched without indexing the whole pack. */
+export const DOME_TABLE_ID = {
+  [DOME.WILD]: "cgmiscdometbl001",
+  [DOME.NECROMANCY]: "cgmiscdometbl002",
+  [DOME.HEALING]: "cgmiscdometbl003",
+  [DOME.REST]: "cgmiscdometbl004"
 };
 
 export const SETTING = {
@@ -22,13 +46,16 @@ export const SETTING = {
   DAMAGE_MINIMUM: "damageMinimum",
   /** The floor itself. 3 means any 1 or 2 counts as a 3. */
   DAMAGE_MINIMUM_VALUE: "damageMinimumValue",
+  /** The Dome: spells and short rests roll on its tables. */
+  DOME: "dome",
   DEBUG: "debug"
 };
 
 /** Scene-control toggle names, also the keys used to refresh their state. */
 export const TOOL = {
   ADVANTAGE: "cgMiscDamageAdvantage",
-  MINIMUM: "cgMiscDamageMinimum"
+  MINIMUM: "cgMiscDamageMinimum",
+  DOME: "cgMiscDome"
 };
 
 /**

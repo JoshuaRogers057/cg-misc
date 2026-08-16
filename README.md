@@ -107,10 +107,49 @@ methods accept an `Actor`, `Token` or `TokenDocument`, and require ownership of 
 | Apply to Every Actor | off | The advantage switch. Same thing the skull button toggles. |
 | Minimum Damage Die | off | The floor switch. Same thing the die button toggles. |
 | Minimum Die Value | `3` | The floor under each damage die. 3 means any 1 or 2 counts as a 3. |
+| The Dome | off | Spells and short rests roll on the Dome's tables. Same thing the dome button toggles. |
 | Debug Logging | off | Logs every roll the module modifies, before and after. |
 
 The master switch outranks both world switches. Turning either on while the master switch is
 off warns you rather than failing silently.
+
+### The Dome
+
+While the Dome is up, magic and rest inside it warp. Toggle it with the **dome button in the
+token controls**, from **Module Settings → The Dome**, or from a macro:
+
+```js
+game.modules.get("cg-misc").api.toggleDome();
+```
+
+Raising or lowering it announces to chat, so the table knows the rules just changed.
+
+| Trigger | Table |
+| --- | --- |
+| A leveled **healing** spell is cast | The Dome: Healing |
+| A leveled **necromancy** spell is cast | The Dome: Necromancy |
+| Any **other leveled spell** is cast | The Dome: Wild Magic |
+| A character finishes a **short rest** | The Dome: Rest Mutation |
+
+**Cantrips are exempt** — a d100 on every Firebolt would bury the chat log. **Every actor is
+affected**, monsters included. Short rests roll **once per resting character**, so each one gets
+their own mutation. Long rests do nothing.
+
+A spell that is both healing and necromancy — False Life, say — rolls **once**, on the healing
+table. Healing is checked first, matching the order the triggers are listed above.
+
+#### Customising the tables
+
+The four tables ship in the *CG Misc - Tables* compendium, so every server instance rolls on
+exactly the same results. To change them without editing the module, duplicate a table into your
+world and give it the flag:
+
+| Attribute Key | Value |
+| --- | --- |
+| `flags.cg-misc.domeTable` | `wild`, `necromancy`, `healing` or `rest` |
+
+A world table carrying that flag takes precedence over the shipped one, and survives module
+updates. Rename it however you like — the flag is what's matched, not the name.
 
 #### How it works, and why it is built this way
 

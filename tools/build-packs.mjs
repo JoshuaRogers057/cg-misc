@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 /**
- * Compile packs/_source/*.json into the LevelDB compendium Foundry actually reads.
+ * Compile packs/_source/<pack name>/*.json into the LevelDB compendia Foundry actually reads.
  *
- * Foundry stores a v13 pack as one key per document: `!items!<itemId>` for the item, and a
- * separate `!items.effects!<itemId>.<effectId>` for each embedded effect, with the parent's
- * `effects` array holding only the effect ids. The source JSON here is written the natural
- * way - effects inline - and this script splits it.
+ * Foundry stores a v13 pack as one key per document: `!items!<id>` for a document in an Item
+ * pack, `!tables!<id>` in a RollTable pack, and a separate key per embedded document, e.g.
+ * `!items.effects!<itemId>.<effectId>` or `!tables.results!<tableId>.<resultId>`. The parent's
+ * embedded array holds only ids. The source JSON here is written the natural way - embedded
+ * documents inline - and this script splits it.
+ *
+ * Which packs exist is read from module.json, so adding a pack there and a matching source
+ * directory is all it takes.
  *
  * Usage:
  *   node tools/build-packs.mjs [--foundry "<path to Foundry's resources/app>"]
@@ -19,8 +23,13 @@ import { existsSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
-const SOURCE_DIR = path.join(ROOT, "packs", "_source");
-const PACK_DIR = path.join(ROOT, "packs", "cg-misc-effects");
+const SOURCE_ROOT = path.join(ROOT, "packs", "_source");
+
+/** Document type -> the primary key segment and which of its fields hold embedded documents. */
+const PACK_TYPES = {
+  Item: { primary: "items", embedded: { effects: "effects" } },
+  RollTable: { primary: "tables", embedded: { results: "results" } }
+};
 
 const FOUNDRY_CANDIDATES = [
   process.env.FOUNDRY_APP,
@@ -51,42 +60,60 @@ async function loadClassicLevel() {
   );
 }
 
-async function main() {
-  const ClassicLevel = await loadClassicLevel();
+async function buildPack(ClassicLevel, pack) {
+  const spec = PACK_TYPES[pack.type];
+  if (!spec) throw new Error(`Pack "${pack.name}" has unsupported type "${pack.type}"`);
 
-  const files = (await fs.readdir(SOURCE_DIR)).filter((f) => f.endsWith(".json"));
-  if (!files.length) throw new Error(`No source documents in ${SOURCE_DIR}`);
+  const sourceDir = path.join(SOURCE_ROOT, pack.name);
+  if (!existsSync(sourceDir)) throw new Error(`No source directory for pack "${pack.name}" at ${sourceDir}`);
 
+  const files = (await fs.readdir(sourceDir)).filter((f) => f.endsWith(".json"));
+  if (!files.length) throw new Error(`No source documents in ${sourceDir}`);
+
+  const packDir = path.join(ROOT, pack.path);
   // Rebuild from scratch so documents deleted from _source don't survive in the pack.
-  await fs.rm(PACK_DIR, { recursive: true, force: true });
-  await fs.mkdir(PACK_DIR, { recursive: true });
+  await fs.rm(packDir, { recursive: true, force: true });
+  await fs.mkdir(packDir, { recursive: true });
 
-  const db = new ClassicLevel(PACK_DIR, { keyEncoding: "utf8", valueEncoding: "json" });
+  const db = new ClassicLevel(packDir, { keyEncoding: "utf8", valueEncoding: "json" });
   await db.open();
 
   const batch = db.batch();
-  let items = 0;
-  let effects = 0;
+  const counts = { documents: 0, embedded: 0 };
 
   for (const file of files) {
-    const doc = JSON.parse(await fs.readFile(path.join(SOURCE_DIR, file), "utf8"));
-    if (!doc._id) throw new Error(`${file} has no _id`);
+    const doc = JSON.parse(await fs.readFile(path.join(sourceDir, file), "utf8"));
+    if (!doc._id) throw new Error(`${pack.name}/${file} has no _id`);
 
-    const embedded = Array.isArray(doc.effects) ? doc.effects : [];
-    for (const effect of embedded) {
-      if (!effect._id) throw new Error(`${file} has an effect with no _id`);
-      batch.put(`!items.effects!${doc._id}.${effect._id}`, effect);
-      effects++;
+    const flattened = { ...doc };
+
+    for (const [field, collection] of Object.entries(spec.embedded)) {
+      const children = Array.isArray(doc[field]) ? doc[field] : [];
+      for (const child of children) {
+        if (!child._id) throw new Error(`${pack.name}/${file} has a ${field} entry with no _id`);
+        batch.put(`!${spec.primary}.${collection}!${doc._id}.${child._id}`, child);
+        counts.embedded++;
+      }
+      flattened[field] = children.map((c) => c._id);
     }
 
-    batch.put(`!items!${doc._id}`, { ...doc, effects: embedded.map((e) => e._id) });
-    items++;
+    batch.put(`!${spec.primary}!${doc._id}`, flattened);
+    counts.documents++;
   }
 
   await batch.write();
   await db.close();
 
-  console.log(`Built ${path.relative(ROOT, PACK_DIR)}: ${items} item(s), ${effects} effect(s).`);
+  console.log(
+    `Built ${pack.path}: ${counts.documents} ${pack.type} document(s), ${counts.embedded} embedded.`
+  );
+}
+
+async function main() {
+  const ClassicLevel = await loadClassicLevel();
+  const manifest = JSON.parse(await fs.readFile(path.join(ROOT, "module.json"), "utf8"));
+
+  for (const pack of manifest.packs ?? []) await buildPack(ClassicLevel, pack);
 }
 
 await main();

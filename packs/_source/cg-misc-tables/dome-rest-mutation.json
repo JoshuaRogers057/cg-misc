@@ -1,0 +1,721 @@
+{
+  "_id": "cgmiscdometbl004",
+  "name": "The Dome: Rest Mutation",
+  "img": "icons/svg/d20-grey.svg",
+  "description": "Rolled for each character that finishes a short rest while the Dome is active.",
+  "results": [
+    {
+      "_id": "94DjpRSLZmceQ8Rt",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your skin turns translucent, with veins and organs faintly visible beneath. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "siaOvfDXUvr5ouRs",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "One of your arms elongates by 1d4 feet. This does not alter your reach. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "VzeIPNxUlUR8SrxZ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your mouth stretches unnaturally wide whenever you smile. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "q8KeBZz6MN3aNrkY",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A third eye sprouts from your forehead. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "zmNkv6Fhd4XqOzyM",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your blood turns black and smolders faintly when exposed to air. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ANfyd2yurnYb9Civ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your tongue forks like a serpent's. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "PeILcElgbzcCHbcV",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Small crystalline shards protrude from your skin. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "DawK6pjSn49Awnax",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your shadow writhes as though alive, even while you stand still. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "1uKtUD6jwOANXD6s",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You permanently smell faintly of ash and burnt ozone. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ryrNZ0X8Q3f1MHvV",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your heartbeat can be heard faintly by creatures standing near you. This has no mechanical effect. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ZgRH5izkZmYXuoAo",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A pair of small vestigial wings sprouts from your back. They cannot support flight. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        11,
+        11
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "LuCkHg2XsYoFPsgg",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your teeth elongate into sharp fangs. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        12,
+        12
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dPVzkijuplrwE975",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your voice sounds as though two people are speaking simultaneously. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "aM0OGuB5ADhxbe7l",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "One of your eyes turns milky white, with faint shapes seeming to move behind it. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        14,
+        14
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "C05Pfe5vJgqRc6fo",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your hair floats weightlessly as though underwater. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        15,
+        15
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "3JR4I5uQgloBJqaW",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your skin develops a faint metallic sheen. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        16,
+        16
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "fX5PcPjINYLnf5Rl",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You appear completely unbothered by physical pain, though you still suffer its effects normally. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        17,
+        17
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "zoY17B72oY4AbRdb",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your fingers partially fuse, leaving three digits on each hand. This does not impair their use. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        18,
+        18
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "8mqR16BlK2U2ZCtP",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A tail of writhing flesh and bone sprouts from your spine. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "gXeUkFUJ2C1kqLfT",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your pupils become vertical slits like a predator's. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "DciSqDjqkR4HK5vQ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your skin occasionally flickers like visual static. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        21,
+        21
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "bepl2V4B3XW9wN2U",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Patches of hard scales grow across your body. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        22,
+        22
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "2So0TjsaFtH8S99f",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your nails grow into long claw-like talons. They provide no natural weapon. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        23,
+        23
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "umldgx73o9SFeNhb",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You no longer cast a reflection. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        24,
+        24
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "OUYHyeVWEx3XHlpv",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your veins glow faintly beneath your skin. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        25,
+        25
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "CG7U5pOPFhbFHytc",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A low humming sound resonates from your chest whenever you breathe. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        26,
+        26
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "eSikxlhkqCbDTl7W",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "An animalistic growl slips unpredictably into your speech. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        27,
+        27
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "2xY962cUebeMIiC9",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your eyes glow brightly whenever you become angry or afraid. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        28,
+        28
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "s3ae2nHmznU8Vsd7",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Strange symbols scar themselves across your arms. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        29,
+        29
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "RdHwrK58zKHVqU2M",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Small horn nubs grow from your forehead. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        30,
+        30
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "yA9xyL9IwrCcs61f",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your sweat turns into fine sand as it leaves your skin. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        31,
+        31
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "X5StXZzsVB9VrRAP",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your lower jaw separates into four mandible-like sections whenever you open your mouth. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        32,
+        32
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "QInPDu4GB1HyhRbQ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your shadow depicts a monstrous version of you rather than your true appearance. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        33,
+        33
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "gWw8GMLo9AXaiLaM",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "One of your eyes reflects only darkness, even in bright light. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        34,
+        34
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "yBxgbfcAIEMsaudE",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "When wounded, your blood hardens into black crystal around the injury instead of forming a normal scab. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        35,
+        35
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "AZcJsd65Hves8KcG",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Jagged ridges grow along your spine and remain visible beneath clothing. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        36,
+        36
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "99dtVf7uBfHxsfAR",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your eyes invert, becoming white pupils surrounded by black sclera. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        37,
+        37
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "ABCMS5uW32XLasWS",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Gill-like slits form along your neck. They do not function. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        38,
+        38
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "J7iMzxl3GWUBxFp6",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your shadow moves a few seconds behind you. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        39,
+        39
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "SwNuhfOrps0hx113",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your heartbeat glows visibly through your chest. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        40,
+        40
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Pac1sXyq9GHJV5jX",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your tears become thin streams of blood. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        41,
+        41
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "GTkZSHZt1rmVtHm9",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "You occasionally cough up harmless shards of glass. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        42,
+        42
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "IuHQRCF61MgZTGHc",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your voice whispers each word a moment before you actually say it. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        43,
+        43
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "6DAWKyMAtsCGqBai",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A third arm sprouts from your side. It cannot manipulate objects and mostly makes rude gestures. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        44,
+        44
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "YCoGZSmjLwef2aQi",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A small eye grows on the tip of your tongue. It provides no additional sight. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        45,
+        45
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "gIFLV6pogKC8DhpG",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your skin sheds in thin translucent sheets. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        46,
+        46
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "94ZB6JVayfUlRSS5",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Sharp spines grow along your forearms. They cannot be used as weapons. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        47,
+        47
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "9436q3PLhy2suCsw",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your physical appearance changes to resemble a different ancestry or species, but none of your traits or abilities change. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        48,
+        48
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "E2yAbN9xrssjxqpd",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your skin develops the appearance of cracked porcelain while remaining normal to the touch. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        49,
+        49
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Wq6t0sTUqhQM9uMQ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Your reflection always smirks at you regardless of your actual expression. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        50,
+        50
+      ],
+      "drawn": false,
+      "flags": {}
+    }
+  ],
+  "formula": "1d50",
+  "replacement": true,
+  "displayRoll": true,
+  "folder": null,
+  "sort": 300,
+  "flags": {
+    "cg-misc": {
+      "domeTable": "rest"
+    }
+  },
+  "ownership": {
+    "default": 2
+  }
+}

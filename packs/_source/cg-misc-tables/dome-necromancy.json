@@ -1,0 +1,581 @@
+{
+  "_id": "cgmiscdometbl002",
+  "name": "The Dome: Necromancy",
+  "img": "icons/svg/d20-grey.svg",
+  "description": "Rolled when a leveled necromancy spell is cast while the Dome is active.",
+  "results": [
+    {
+      "_id": "qPcCwml9OrLanALX",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Shadows coil around the caster like armor. The first attack made against the caster before the end of their next turn has Disadvantage.",
+      "weight": 1,
+      "range": [
+        1,
+        1
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "cd0ZWXuBs18iAxKE",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A burst of freezing air radiates outward. Every other creature within 20 feet takes 1d6 Cold damage.",
+      "weight": 1,
+      "range": [
+        2,
+        2
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "K5zGsqWmR3aOEQhE",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "All corpses within 30 feet twitch violently. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        3,
+        3
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "iffP1NCQ1yHhg5wK",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The caster's veins glow sickly green until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        4,
+        4
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Y9WPjpDOakwge56N",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Every creature within 30 feet suddenly tastes ash. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        5,
+        5
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "YSMDWW1wcNUF066F",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A low keening wail echoes outward and can be heard within 60 feet. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        6,
+        6
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Vv5HUsmCErbJtlZn",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Black ichor drips from the caster's eyes until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        7,
+        7
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "nn61gdfwawNrOYhP",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A pulse of necrotic energy erupts outward. Every other creature within 10 feet takes 1d8 Necrotic damage.",
+      "weight": 1,
+      "range": [
+        8,
+        8
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "d67nEh1Zcq4gcbMY",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Nearby nonmagical plants wither and die instantly. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        9,
+        9
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "rSxBSvDkJDd0WcjT",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A random creature within 30 feet of the caster takes 1d4 Necrotic damage. The caster cannot be selected.",
+      "weight": 1,
+      "range": [
+        10,
+        10
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "vDttHfC2EKV0I5h7",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The caster's wounds knit unnaturally. The caster regains 1d6 Hit Points.",
+      "weight": 1,
+      "range": [
+        11,
+        11
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "H3YKZKHfVAnpb6s4",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A skeletal hand erupts from the ground. One random creature within 15 feet of the caster takes 1d6 Bludgeoning damage. The caster cannot be selected.",
+      "weight": 1,
+      "range": [
+        12,
+        12
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "VdYk2ybkOkSD2YNz",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The next spell the caster casts before the end of their next turn requires no Verbal or Somatic components.",
+      "weight": 1,
+      "range": [
+        13,
+        13
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Tbjqmjpr7LSkHWPh",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A wave of supernatural dread radiates from the caster. Every enemy within 10 feet must succeed on a DC 12 Wisdom saving throw or be Frightened until the end of its next turn.",
+      "weight": 1,
+      "range": [
+        14,
+        14
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "oP9548CeJWv9yWgr",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The dead whisper unsolicited advice that only the caster can hear until the end of the caster's next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        15,
+        15
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "fVaM4oUQPEtv5eSR",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Black feathers drift down from nowhere. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        16,
+        16
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "wa6F8w1ynzfdFQDX",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The caster's footsteps briefly leave glowing skeletal footprints behind them. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        17,
+        17
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "TOlzWvxs2UIH7VDl",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Every other creature within 20 feet feels its heart stop for a moment and takes 1d4 Psychic damage.",
+      "weight": 1,
+      "range": [
+        18,
+        18
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "YuQLuZbl4E78BVnj",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Spectral chains lash outward. Every other creature within 10 feet takes 1d6 Slashing damage.",
+      "weight": 1,
+      "range": [
+        19,
+        19
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "G9C6DxNNIOwQ2U60",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The ground within 10 feet of the caster becomes unnaturally cold and brittle until the end of the caster's next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        20,
+        20
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "jGVnACKLYVLZeT7h",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The caster exhales a cloud of shadow that coils around their body until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        21,
+        21
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "YeCZPBE90yfQbdRh",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Undead within 60 feet briefly bow their heads toward the caster in acknowledgment. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        22,
+        22
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dIY867Nsp6Xclw9Q",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A cold spark of vitality erupts outward. Every other creature within 10 feet regains 1d4 Hit Points.",
+      "weight": 1,
+      "range": [
+        23,
+        23
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "cGVZx84z8KOThGfb",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A ghostly skull hovers above the caster until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        24,
+        24
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "euAYKE1y1qmbErRS",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "All nonmagical light sources within 20 feet are reduced to half their normal Bright and Dim Light radius until the end of the caster's next turn.",
+      "weight": 1,
+      "range": [
+        25,
+        25
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "OoXTzqwcjqEzO5uD",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Necrotic power explodes outward. Every other creature within 15 feet takes 2d6 Necrotic damage.",
+      "weight": 1,
+      "range": [
+        26,
+        26
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "Z4QkcAYtpGWzDKEM",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Skeletal fingers burst from the ground. Every other creature within 5 feet takes 1d6 Slashing damage.",
+      "weight": 1,
+      "range": [
+        27,
+        27
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "4EGc2ADYGNT4C2IM",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The caster's shadow stretches unnaturally across the ground until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        28,
+        28
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "dVybL2CBBpUYUUv0",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Green necrotic energy wreathes the caster's weapon or hands. The next successful attack the caster makes before the end of their next turn deals an additional 1d4 Necrotic damage.",
+      "weight": 1,
+      "range": [
+        29,
+        29
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "JsgZhTd4U3V5pLwU",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Everyone within 30 feet hears faint whispers of the dead until the end of the caster's next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        30,
+        30
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "q0JfG5kb5oSJDE5R",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Black flame erupts around the caster. Every creature other than the caster within 10 feet takes 2d4 Fire damage.",
+      "weight": 1,
+      "range": [
+        31,
+        31
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "EJWTpunnfW1mQKRq",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Blood exposed within 30 feet begins steaming and boiling. Every other creature within 30 feet that is currently below its Hit Point maximum takes 1d4 Fire damage.",
+      "weight": 1,
+      "range": [
+        32,
+        32
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "uKGBWTdpMSqLIaVC",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A supernatural chill radiates outward. Every other creature within 10 feet takes 1d4 Cold damage.",
+      "weight": 1,
+      "range": [
+        33,
+        33
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "rJaQ1BJuWuM6W2ez",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A spectral figure rises beside the caster and shields them. The first attack made against the caster before the end of their next turn has Disadvantage.",
+      "weight": 1,
+      "range": [
+        34,
+        34
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "rqSNP2mTGQOxBNtl",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Necromantic hunger fills the caster. The next damaging spell they cast before the end of their next turn restores Hit Points to them equal to half the damage dealt to one creature by that spell.",
+      "weight": 1,
+      "range": [
+        35,
+        35
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "QGMVk4iGT96QtIEC",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "Every other creature within 10 feet feels its knees buckle. Each takes 1d4 Bludgeoning damage and must succeed on a DC 12 Strength saving throw or fall Prone.",
+      "weight": 1,
+      "range": [
+        36,
+        36
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "j1NUzc3gK7TvhWnJ",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A freezing wind circles the caster and immediately extinguishes unattended nonmagical flames within 10 feet.",
+      "weight": 1,
+      "range": [
+        37,
+        37
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "7jXWOZEAa8kPF1g4",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "A ripple of unnatural darkness bends the light around the caster until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        38,
+        38
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "guezLHv1vE0yT1X6",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The caster's voice becomes unnaturally deep and echoes like a chorus of the dead until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        39,
+        39
+      ],
+      "drawn": false,
+      "flags": {}
+    },
+    {
+      "_id": "XAfvbcv6drHuy9G9",
+      "type": "text",
+      "name": "",
+      "img": "icons/svg/d20-black.svg",
+      "description": "The caster's eyes burn with pale, bone-white fire until the end of their next turn. (Cosmetic)",
+      "weight": 1,
+      "range": [
+        40,
+        40
+      ],
+      "drawn": false,
+      "flags": {}
+    }
+  ],
+  "formula": "1d40",
+  "replacement": true,
+  "displayRoll": true,
+  "folder": null,
+  "sort": 100,
+  "flags": {
+    "cg-misc": {
+      "domeTable": "necromancy"
+    }
+  },
+  "ownership": {
+    "default": 2
+  }
+}

@@ -33,7 +33,7 @@ test("init registers every setting the code later reads", () => {
 });
 
 test("init exposes the documented API surface", () => {
-  for (const shorthand of ["toggle", "toggleGlobal", "toggleMinimum"]) {
+  for (const shorthand of ["toggle", "toggleGlobal", "toggleMinimum", "toggleDome"]) {
     assert.equal(typeof moduleEntry.api[shorthand], "function", `api.${shorthand} is a documented macro entry point`);
   }
 
@@ -42,6 +42,25 @@ test("init exposes the documented API surface", () => {
     assert.equal(typeof api[method], "function", `api.damageAdvantage.${method} missing`);
   }
   assert.equal(api.key, "flags.cg-misc.damageAdvantage", "the effect key is part of the public surface");
+
+  for (const method of ["toggle", "isActive", "roll", "classify"]) {
+    assert.equal(typeof moduleEntry.api.dome[method], "function", `api.dome.${method} missing`);
+  }
+});
+
+test("the Dome's triggers are registered at init", () => {
+  for (const hook of ["dnd5e.postUseActivity", "dnd5e.restCompleted"]) {
+    assert.ok(hooks.get(hook), `${hook} not registered`);
+  }
+});
+
+test("every shipped pack has a matching source directory", async () => {
+  // The build script is driven by module.json, so a pack declared without sources fails the build.
+  const fs = await import("node:fs");
+  for (const pack of manifest.packs) {
+    const dir = new URL(`../packs/_source/${pack.name}`, import.meta.url);
+    assert.ok(fs.existsSync(dir), `no _source directory for pack ${pack.name}`);
+  }
 });
 
 test("the damage roll hook is live once init has run", () => {
