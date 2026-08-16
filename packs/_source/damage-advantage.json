@@ -1,0 +1,56 @@
+{
+  "_id": "cgmiscdmgadv0001",
+  "name": "Damage Advantage (Necrotic)",
+  "type": "feat",
+  "img": "icons/magic/death/skull-energy-light-purple.webp",
+  "system": {
+    "description": {
+      "value": "<p>While this feature is active, every necrotic damage roll you make is rolled twice and the higher total is kept. This applies to weapon attacks, spell attacks and saving-throw spells alike, and has no once-per-turn limit.</p><p>To cover a different damage type, edit the Active Effect on this item and change the effect value from <code>necrotic</code> to the damage type you want. Several types can be listed at once, separated by commas: <code>necrotic,radiant</code>.</p>",
+      "chat": ""
+    },
+    "source": {
+      "custom": "Champions Guild Misc"
+    },
+    "activities": {},
+    "uses": {
+      "spent": 0,
+      "recovery": []
+    },
+    "type": {
+      "value": "",
+      "subtype": ""
+    },
+    "requirements": "",
+    "recharge": {
+      "value": null,
+      "charged": false
+    }
+  },
+  "effects": [
+    {
+      "_id": "cgmiscdmgadveff1",
+      "name": "Damage Advantage",
+      "img": "icons/magic/death/skull-energy-light-purple.webp",
+      "changes": [
+        {
+          "key": "flags.cg-misc.damageAdvantage",
+          "mode": 5,
+          "value": "necrotic",
+          "priority": 20
+        }
+      ],
+      "disabled": false,
+      "transfer": true,
+      "description": "<p>Damage rolls of the listed types are rolled twice, keeping the higher total.</p>",
+      "duration": {},
+      "statuses": [],
+      "flags": {}
+    }
+  ],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {}
+}

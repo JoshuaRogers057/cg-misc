@@ -1,0 +1,7 @@
+# LevelDB stores the pack as a mix of binary tables and small text files (CURRENT, MANIFEST-*).
+# Git guesses the latter are text and rewrites their line endings on Windows checkouts, which
+# corrupts the database. Mark the whole compendium binary so it round-trips byte for byte.
+packs/cg-misc-effects/** binary
+
+# The source the pack is built from is ordinary JSON.
+packs/_source/*.json text eol=lf

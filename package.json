@@ -1,0 +1,14 @@
+{
+  "name": "cg-misc",
+  "version": "0.1.0",
+  "description": "Build and test tooling for the Champions Guild Misc Foundry VTT module.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "build:packs": "node tools/build-packs.mjs"
+  },
+  "devDependencies": {
+    "classic-level": "^1.4.1"
+  }
+}

@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+node_modules/
+
+# Local Claude Code session config, not part of the module
+.claude/
+
+# LevelDB runtime artifacts. The pack data itself (*.ldb, *.log, CURRENT, MANIFEST-*) is
+# committed so a straight clone into Foundry's modules folder works; these three are
+# recreated on every open and only ever produce noisy diffs.
+packs/**/LOCK
+packs/**/LOG
+packs/**/LOG.old

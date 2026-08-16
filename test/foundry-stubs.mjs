@@ -1,0 +1,97 @@
+/**
+ * The smallest slice of the Foundry globals damage-advantage.mjs touches, so its hook can be
+ * driven under `node --test` without a running server. Import this before importing anything
+ * from scripts/.
+ */
+
+function getProperty(object, key) {
+  let target = object;
+  for (const part of key.split(".")) {
+    if (target === null || target === undefined) return undefined;
+    target = target[part];
+  }
+  return target;
+}
+
+function deepClone(value) {
+  if (value === null || typeof value !== "object") return value;
+  if (Array.isArray(value)) return value.map(deepClone);
+  return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, deepClone(v)]));
+}
+
+export const state = {
+  settings: {
+    "cg-misc.damageAdvantageEnabled": true,
+    "cg-misc.damageAdvantageDefaultType": "necrotic",
+    "cg-misc.debug": false
+  },
+  speakerActor: null,
+  notifications: []
+};
+
+globalThis.foundry = { utils: { getProperty, deepClone } };
+
+globalThis.game = {
+  settings: {
+    get(module, key) {
+      const id = `${module}.${key}`;
+      if (!(id in state.settings)) throw new Error(`setting not registered: ${id}`);
+      return state.settings[id];
+    }
+  },
+  i18n: {
+    localize: (key) => key,
+    format: (key) => key
+  }
+};
+
+globalThis.ui = {
+  notifications: {
+    error: (message) => state.notifications.push(["error", message]),
+    warn: (message) => state.notifications.push(["warn", message])
+  }
+};
+
+globalThis.ChatMessage = { getSpeakerActor: () => state.speakerActor };
+
+globalThis.CONST = {
+  ACTIVE_EFFECT_MODES: { CUSTOM: 0, MULTIPLY: 1, ADD: 2, DOWNGRADE: 3, UPGRADE: 4, OVERRIDE: 5 }
+};
+
+globalThis.Actor = class Actor {};
+globalThis.ActiveEffect = { implementation: { create: async () => null } };
+
+/** Captures the handlers the module registers so a test can call them directly. */
+export const hooks = new Map();
+globalThis.Hooks = {
+  on(name, fn) {
+    hooks.set(name, fn);
+  },
+  once(name, fn) {
+    hooks.set(name, fn);
+  }
+};
+
+/**
+ * Stands in for dnd5e's DamageRoll. Only the surface the feature reads is modelled: the
+ * formula (already critical-configured by the time our hook runs), options, data and terms.
+ */
+export class FakeDamageRoll {
+  constructor(formula, data = {}, options = {}) {
+    this.formula = formula;
+    this.data = data;
+    this.options = options;
+    this.terms = options._terms ?? [];
+  }
+}
+
+/** An actor whose advantage types come from the flag, from effects, or both. */
+export function makeActor({ name = "Test", flagTypes, effectTypes = [] } = {}) {
+  const actor = Object.create(globalThis.Actor.prototype);
+  actor.name = name;
+  actor.flags = flagTypes === undefined ? {} : { "cg-misc": { damageAdvantage: flagTypes } };
+  actor.appliedEffects = effectTypes.map((value) => ({
+    changes: [{ key: "flags.cg-misc.damageAdvantage", mode: 5, value }]
+  }));
+  return actor;
+}
