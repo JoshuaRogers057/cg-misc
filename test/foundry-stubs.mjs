@@ -31,12 +31,24 @@ export const state = {
 
 globalThis.foundry = { utils: { getProperty, deepClone } };
 
+/** Settings registered via game.settings.register, so a test can assert on them. */
+export const registered = new Map();
+
+/** Stands in for the module entry Foundry hands out, which is where the API is hung. */
+export const moduleEntry = { id: "cg-misc", active: true };
+
 globalThis.game = {
+  system: { id: "dnd5e" },
+  user: { isGM: true },
+  modules: { get: (id) => (id === "cg-misc" ? moduleEntry : undefined) },
   settings: {
     get(module, key) {
       const id = `${module}.${key}`;
       if (!(id in state.settings)) throw new Error(`setting not registered: ${id}`);
       return state.settings[id];
+    },
+    register(module, key, data) {
+      registered.set(`${module}.${key}`, data);
     }
   },
   i18n: {
