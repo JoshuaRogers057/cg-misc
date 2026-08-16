@@ -16,13 +16,20 @@ export const SETTING = {
   DAMAGE_ADVANTAGE_ENABLED: "damageAdvantageEnabled",
   /** The world-wide switch: while on, every actor has advantage on TYPES. */
   DAMAGE_ADVANTAGE_GLOBAL: "damageAdvantageGlobal",
-  /** Damage types the global switch grants, and the default for the per-actor toggle. */
+  /** Damage types every enhancement applies to. Shared by both switches. */
   DAMAGE_ADVANTAGE_TYPES: "damageAdvantageTypes",
+  /** The second, independent enhancement: a floor under each damage die. */
+  DAMAGE_MINIMUM: "damageMinimum",
+  /** The floor itself. 3 means any 1 or 2 counts as a 3. */
+  DAMAGE_MINIMUM_VALUE: "damageMinimumValue",
   DEBUG: "debug"
 };
 
-/** Name of the scene-control toggle, also the key used to refresh its state. */
-export const TOOL_NAME = "cgMiscDamageAdvantage";
+/** Scene-control toggle names, also the keys used to refresh their state. */
+export const TOOL = {
+  ADVANTAGE: "cgMiscDamageAdvantage",
+  MINIMUM: "cgMiscDamageMinimum"
+};
 
 /**
  * `flags.cg-misc.damageAdvantage` - the Active Effect change key. This is the string a GM

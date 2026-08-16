@@ -19,8 +19,9 @@ Hooks.once("init", () => {
   const mod = game.modules.get(MODULE_ID);
   mod.api = {
     damageAdvantage: damageAdvantageApi,
-    // Shorthands for hotbar macros. The world switch is the one reached for at the table.
+    // Shorthands for hotbar macros. The world switches are what get reached for at the table.
     toggleGlobal: damageAdvantageApi.toggleGlobal,
+    toggleMinimum: damageAdvantageApi.toggleMinimum,
     toggle: damageAdvantageApi.toggle
   };
 });

@@ -24,6 +24,8 @@ export const state = {
     "cg-misc.damageAdvantageEnabled": true,
     "cg-misc.damageAdvantageGlobal": false,
     "cg-misc.damageAdvantageTypes": "necrotic",
+    "cg-misc.damageMinimum": false,
+    "cg-misc.damageMinimumValue": 3,
     "cg-misc.debug": false
   },
   speakerActor: null,
@@ -31,7 +33,87 @@ export const state = {
   messages: []
 };
 
-globalThis.foundry = { utils: { getProperty, deepClone } };
+/* -------------------------------------------- */
+/*  Dice                                        */
+/* -------------------------------------------- */
+
+/**
+ * Enough of Foundry's dice term API for the minimum-die formula rewriting to run. The real
+ * parser is Foundry's; this models the shapes the rewriting depends on - that a die exposes
+ * its modifiers as a mutable array, and that `formula` round-trips modifiers and flavor.
+ */
+export class DiceTerm {
+  constructor({ number = 1, faces, modifiers = [], flavor = "" }) {
+    Object.assign(this, { number, faces, modifiers, flavor });
+  }
+
+  get formula() {
+    return `${this.number}d${this.faces}${this.modifiers.join("")}${this.flavor ? `[${this.flavor}]` : ""}`;
+  }
+}
+
+class PlainTerm {
+  constructor(text) {
+    this.text = text;
+  }
+
+  get formula() {
+    return this.text;
+  }
+}
+
+export class ParentheticalTerm {
+  constructor({ term, options }) {
+    Object.assign(this, { term, options });
+  }
+
+  get formula() {
+    return `(${this.term})`;
+  }
+}
+
+export class PoolTerm {
+  constructor({ terms, modifiers = [], options }) {
+    Object.assign(this, { terms, modifiers, options });
+  }
+
+  get formula() {
+    return `{${this.terms.join(",")}}${this.modifiers.join("")}`;
+  }
+}
+
+const DIE = /(\d*)d(\d+)((?:[a-z]+\d*)*)(?:\[([^\]]+)\])?/gi;
+
+globalThis.Roll = {
+  parse(input) {
+    // Foundry's parser strips all whitespace before tokenising, so a rewritten formula comes
+    // back without the spaces it went in with. Mirrored here so tests assert the real shape.
+    const formula = String(input).replace(/\s+/g, "");
+    const terms = [];
+    let last = 0;
+    DIE.lastIndex = 0;
+    for (let m = DIE.exec(formula); m; m = DIE.exec(formula)) {
+      if (m.index > last) terms.push(new PlainTerm(formula.slice(last, m.index)));
+      terms.push(
+        new DiceTerm({
+          number: m[1] || 1,
+          faces: m[2],
+          modifiers: m[3] ? m[3].match(/[a-z]+\d*/gi) ?? [] : [],
+          flavor: m[4] ?? ""
+        })
+      );
+      last = DIE.lastIndex;
+    }
+    if (last < formula.length) terms.push(new PlainTerm(formula.slice(last)));
+    return terms;
+  },
+  getFormula: (terms) => terms.map((t) => t.formula).join("")
+};
+
+globalThis.foundry = {
+  utils: { getProperty, deepClone },
+  dice: { terms: { DiceTerm, ParentheticalTerm, PoolTerm } }
+};
 
 /** Settings registered via game.settings.register, so a test can assert on them. */
 export const registered = new Map();

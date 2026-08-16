@@ -9,35 +9,47 @@ self-contained and can be turned off from the module settings without disabling 
 
 ## Features
 
-### Damage advantage
+### Damage enhancement
 
-While a character is marked, **every damage roll they make of a given damage type is rolled
-twice and the higher total is kept**. It is the 2024 Savage Attacker mechanic, keyed to a
-damage type rather than to weapons, and with no once-per-turn limit.
+Two independent enhancements, both applying to the same configured damage types (default
+`necrotic`). Either, both or neither can be running.
 
-It applies to weapon attacks, spell attacks and saving-throw spells alike, and a character can
-hold advantage on several damage types at once. The default type is necrotic.
+| | What it does |
+| --- | --- |
+| **Damage advantage** | The damage roll is made twice and the higher **total** kept. The 2024 Savage Attacker mechanic, keyed to a damage type rather than to weapons, and with no once-per-turn limit. |
+| **Minimum damage die** | Every damage die counts as at least 3, so 1s and 2s become 3s. D&D's Elemental Adept pattern, with a configurable floor. |
 
-#### The world switch (the usual way)
+Both apply to weapon attacks, spell attacks and saving-throw spells alike.
 
-Click the **skull button in the token controls**. While it's lit, *every* actor in the world —
-player characters, NPCs and monsters alike — gets the doubled roll on the configured damage
-types. Nothing needs adding to anyone. Click it again to turn it off.
+#### The world switches (the usual way)
+
+Two buttons in the token controls: a **skull** for advantage, a **die** for the minimum. While
+a button is lit, that enhancement is on for *every* actor in the world — player characters,
+NPCs and monsters alike. Nothing needs adding to anyone. Click again to turn it off.
 
 Toggling either way posts a message to chat, so the whole table knows the rule is live. The
-same switch is in **Module Settings → Apply to Every Actor**, and from a macro:
+same switches are in **Module Settings**, and from a macro:
 
 ```js
-game.modules.get("cg-misc").api.toggleGlobal();
+game.modules.get("cg-misc").api.toggleGlobal();   // roll twice, keep higher
 ```
 
-Which damage types it covers is **Module Settings → Damage Types** (default `necrotic`;
-comma-separate for several). GM only — the button is hidden from players.
+```js
+game.modules.get("cg-misc").api.toggleMinimum();  // 1s and 2s count as 3
+```
+
+Which damage types they cover is **Module Settings → Damage Types** (comma-separate for
+several), and the floor itself is **Minimum Die Value**. GM only — the buttons are hidden from
+players.
+
+With both on, a `2d6 + 3` necrotic hit rolls as `{2d6min3+3, 2d6min3+3}kh`: the floor lands
+inside the pool, so each half is floored independently before the higher total wins.
 
 #### Marking one character instead
 
-If you want it on a single character rather than the whole world, three routes, all equivalent
-— they end at the same actor flag, and all of them stack with the world switch.
+To give **advantage** to a single character rather than the whole world, three routes, all
+equivalent — they end at the same actor flag, and all of them stack with the world switch.
+(The minimum-die floor is world-wide only; there is no per-actor route for it.)
 
 **1. The compendium item.** Drag **Damage Advantage (Necrotic)** from the *CG Misc - Effects*
 compendium onto a character sheet. Its Active Effect transfers to the actor and applies
@@ -74,8 +86,10 @@ every client and survives a refresh. It leaves effects from any other source alo
 
 | Method | Returns | Notes |
 | --- | --- | --- |
-| `toggleGlobal(force?)` | `Promise<boolean\|null>` | Flips the world switch. GM only; `null` if refused. |
-| `isGlobal()` | `boolean` | Whether the world switch is on. |
+| `toggleGlobal(force?)` | `Promise<boolean\|null>` | Flips the world advantage switch. GM only; `null` if refused. |
+| `isGlobal()` | `boolean` | Whether the world advantage switch is on. |
+| `toggleMinimum(force?)` | `Promise<boolean\|null>` | Flips the minimum-die switch. GM only. |
+| `isMinimum()` | `boolean` | Whether the minimum-die switch is on. |
 | `get(actor)` | `string[]` | Every type active for that actor, world switch included. |
 | `toggle(actor, type?)` | `Promise<string[]\|null>` | Flips one type on one actor. `null` if it did nothing. |
 | `clear(actor)` | `Promise<boolean>` | Removes only the effect this module owns. |
@@ -89,12 +103,14 @@ methods accept an `Actor`, `Token` or `TokenDocument`, and require ownership of 
 | Setting | Default | |
 | --- | --- | --- |
 | Enable Damage Advantage | on | Master switch. Off stops the module touching any roll, per-actor effects included. |
-| Apply to Every Actor | off | The world switch. Same thing the skull button toggles. |
-| Damage Types | `necrotic` | Which types get the doubled roll. Comma-separate for several. |
-| Debug Logging | off | Logs every roll the module modifies. |
+| Damage Types | `necrotic` | Which types both enhancements apply to. Comma-separate for several. |
+| Apply to Every Actor | off | The advantage switch. Same thing the skull button toggles. |
+| Minimum Damage Die | off | The floor switch. Same thing the die button toggles. |
+| Minimum Die Value | `3` | The floor under each damage die. 3 means any 1 or 2 counts as a 3. |
+| Debug Logging | off | Logs every roll the module modifies, before and after. |
 
-The master switch outranks the world switch. Turning the world switch on while the master
-switch is off warns you rather than failing silently.
+The master switch outranks both world switches. Turning either on while the master switch is
+off warns you rather than failing silently.
 
 #### How it works, and why it is built this way
 

@@ -33,12 +33,12 @@ test("init registers every setting the code later reads", () => {
 });
 
 test("init exposes the documented API surface", () => {
-  for (const shorthand of ["toggle", "toggleGlobal"]) {
+  for (const shorthand of ["toggle", "toggleGlobal", "toggleMinimum"]) {
     assert.equal(typeof moduleEntry.api[shorthand], "function", `api.${shorthand} is a documented macro entry point`);
   }
 
   const api = moduleEntry.api.damageAdvantage;
-  for (const method of ["get", "toggle", "clear", "toggleGlobal", "isGlobal"]) {
+  for (const method of ["get", "toggle", "clear", "toggleGlobal", "isGlobal", "toggleMinimum", "isMinimum"]) {
     assert.equal(typeof api[method], "function", `api.damageAdvantage.${method} missing`);
   }
   assert.equal(api.key, "flags.cg-misc.damageAdvantage", "the effect key is part of the public surface");

@@ -67,9 +67,18 @@ function collectTypes(value, into = new Set()) {
   return into;
 }
 
-/** The types the world-wide switch is granting, or nothing when it is off. */
+/** The types the world-wide advantage switch is granting, or nothing when it is off. */
 export function getGlobalTypes() {
   if (!game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_GLOBAL)) return new Set();
+  return collectTypes(game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_TYPES));
+}
+
+/**
+ * The types the minimum switch is flooring. World-wide only, by design: unlike advantage there
+ * is no per-actor route, so the floor is never on for one character and not another.
+ */
+export function getMinimumTypes() {
+  if (!game.settings.get(MODULE_ID, SETTING.DAMAGE_MINIMUM)) return new Set();
   return collectTypes(game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_TYPES));
 }
 
@@ -138,12 +147,69 @@ function matchType(roll, types) {
 }
 
 /**
- * A roll of the same class and data whose formula is the original rolled twice, keeping the
- * higher total. See the file header for why `configured` has to be set.
+ * Rewrite a formula so every damage die carries a floor, e.g. `2d6 + 3` at minimum 3 becomes
+ * `2d6min3 + 3`. Foundry's `min` die modifier does the work at evaluation time, counting any
+ * result below the target as the target and flagging it as modified in the roll tooltip.
+ *
+ * Done on freshly parsed terms rather than the original roll's, which must not be mutated, and
+ * rather than by regex, which cannot tell a die's modifiers from its flavor. Nested terms are
+ * walked because a parenthetical or an existing pool hides dice from a flat pass.
+ *
+ * @returns {string|null}  The rewritten formula, or null if there was no die to change.
  */
-function buildAdvantageRoll(roll) {
-  const formula = roll?.formula;
-  if (!formula) return null;
+function withMinimum(formula, data, minimum) {
+  const { DiceTerm, ParentheticalTerm, PoolTerm } = foundry.dice.terms;
+  let changed = false;
+
+  const rewrite = (input) =>
+    Roll.getFormula(
+      Roll.parse(input, data).map((term) => {
+        if (term instanceof DiceTerm) {
+          // Respect a floor the formula already asked for rather than stacking a second one.
+          if (!term.modifiers.some((m) => /^min\d+$/i.test(m))) {
+            term.modifiers.push(`min${minimum}`);
+            changed = true;
+          }
+          return term;
+        }
+
+        if (term instanceof ParentheticalTerm) {
+          return new ParentheticalTerm({ term: rewrite(term.term), options: term.options });
+        }
+
+        if (term instanceof PoolTerm) {
+          return new PoolTerm({
+            terms: term.terms.map(rewrite),
+            modifiers: term.modifiers,
+            options: term.options
+          });
+        }
+
+        return term;
+      })
+    );
+
+  const result = rewrite(formula);
+  return changed ? result : null;
+}
+
+/**
+ * A roll of the same class and data carrying whichever enhancements apply: a floor under each
+ * die, the whole thing rolled twice keeping the higher total, or both. The floor goes on first
+ * so that it lands inside the pool and applies to each half independently.
+ *
+ * See the file header for why `configured` has to be set.
+ * @returns {Roll|null}  The replacement, or null if nothing would change.
+ */
+function buildReplacement(roll, { advantage, minimum }) {
+  const original = roll?.formula;
+  if (!original) return null;
+
+  let formula = original;
+  // min1 cannot change a die, and a floor of 0 means the feature is off.
+  if (minimum > 1) formula = withMinimum(formula, roll.data, minimum) ?? formula;
+  if (advantage) formula = `{${formula}, ${formula}}kh`;
+  if (formula === original) return null;
 
   const options = foundry.utils.deepClone(roll.options ?? {});
 
@@ -155,7 +221,7 @@ function buildAdvantageRoll(roll) {
   options.preprocessed = true;
   options[MODULE_ID] = { ...(options[MODULE_ID] ?? {}), [FLAG.WRAPPED]: true };
 
-  return new roll.constructor(`{${formula}, ${formula}}kh`, roll.data, options);
+  return new roll.constructor(formula, roll.data, options);
 }
 
 /**
@@ -167,24 +233,37 @@ function onPostDamageRollConfiguration(rolls, config, dialog, message) {
     if (!game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_ENABLED)) return;
     if (!Array.isArray(rolls) || !rolls.length) return;
 
-    // Not bailing on an unresolvable actor: the world switch applies to everyone, so it must
+    // Not bailing on an unresolvable actor: the world switches apply to everyone, so they must
     // still fire for damage rolled outside an activity, where there is nobody to resolve.
     const actor = resolveActor(config, message);
 
-    const types = getDamageAdvantageTypes(actor);
-    if (!types.size) return;
+    // The two enhancements are independent - either can be on without the other - so they are
+    // matched separately and combined per roll.
+    const advantageTypes = getDamageAdvantageTypes(actor);
+    const minimumTypes = getMinimumTypes();
+    if (!advantageTypes.size && !minimumTypes.size) return;
+
+    const minimumValue = game.settings.get(MODULE_ID, SETTING.DAMAGE_MINIMUM_VALUE);
 
     for (const [index, roll] of rolls.entries()) {
       if (roll?.options?.[MODULE_ID]?.[FLAG.WRAPPED]) continue;
 
-      const type = matchType(roll, types);
-      if (!type) continue;
+      const advantageType = matchType(roll, advantageTypes);
+      const minimumType = matchType(roll, minimumTypes);
+      if (!advantageType && !minimumType) continue;
 
-      const advantageRoll = buildAdvantageRoll(roll);
-      if (!advantageRoll) continue;
+      const replacement = buildReplacement(roll, {
+        advantage: Boolean(advantageType),
+        minimum: minimumType ? minimumValue : 0
+      });
+      if (!replacement) continue;
 
-      rolls[index] = advantageRoll;
-      debugLog(`damage advantage: ${actor?.name ?? "unknown actor"} rolling ${type} twice -`, advantageRoll.formula);
+      rolls[index] = replacement;
+      debugLog(
+        `damage enhancement: ${actor?.name ?? "unknown actor"}`,
+        `(${[advantageType && "advantage", minimumType && `min${minimumValue}`].filter(Boolean).join(" + ")})`,
+        `${roll.formula} -> ${replacement.formula}`
+      );
     }
   } catch (err) {
     // A damage roll that fails to gain advantage is a far better outcome than one that never
@@ -205,31 +284,52 @@ function configuredTypes() {
   return game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_TYPES);
 }
 
-/** Whether the world-wide switch is currently on. */
+/** Whether the world-wide advantage switch is currently on. */
 export function isGlobal() {
   return game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_GLOBAL) === true;
 }
 
+/** Whether the damage-die floor is currently on. */
+export function isMinimum() {
+  return game.settings.get(MODULE_ID, SETTING.DAMAGE_MINIMUM) === true;
+}
+
 /**
- * Turn the world-wide switch on or off. While on, every actor - PCs, NPCs and monsters alike
- * - has advantage on the configured damage types, with no effect to add or remove.
- *
- * Writing a world setting is GM-only, and the setting's own onChange handles announcing the
- * change and refreshing the scene control on every client.
+ * Turn the damage-die floor on or off. Independent of advantage: either, both or neither can
+ * be running, and both apply to the same configured damage types.
+ * @param {boolean} [force]  Set explicitly instead of flipping.
+ * @returns {Promise<boolean|null>}  The new state, or null if it did nothing.
+ */
+export async function toggleMinimum(force) {
+  return setSwitch(SETTING.DAMAGE_MINIMUM, force, isMinimum());
+}
+
+/**
+ * Turn the world-wide advantage switch on or off. While on, every actor - PCs, NPCs and
+ * monsters alike - has advantage on the configured damage types, with no effect to add.
  * @param {boolean} [force]  Set explicitly instead of flipping.
  * @returns {Promise<boolean|null>}  The new state, or null if it did nothing.
  */
 export async function toggleGlobal(force) {
+  return setSwitch(SETTING.DAMAGE_ADVANTAGE_GLOBAL, force, isGlobal());
+}
+
+/**
+ * Shared behaviour behind both world switches. Writing a world setting is GM-only, and the
+ * setting's own onChange is what announces the change and refreshes the scene control on
+ * every client, so there is nothing to do here but the write and the permission check.
+ */
+async function setSwitch(setting, force, current) {
   if (!game.user.isGM) {
     ui.notifications?.warn(game.i18n.localize("CGM.DamageAdvantage.GMOnly"));
     return null;
   }
 
-  const value = typeof force === "boolean" ? force : !isGlobal();
-  await game.settings.set(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_GLOBAL, value);
+  const value = typeof force === "boolean" ? force : !current;
+  await game.settings.set(MODULE_ID, setting, value);
 
-  // The master switch silently outranks this one, so flag the contradiction to whoever flipped
-  // it rather than leaving them to wonder why nothing changed.
+  // The master switch silently outranks both of these, so flag the contradiction to whoever
+  // flipped it rather than leaving them to wonder why nothing changed.
   if (value && !game.settings.get(MODULE_ID, SETTING.DAMAGE_ADVANTAGE_ENABLED)) {
     ui.notifications?.warn(game.i18n.localize("CGM.DamageAdvantage.AnnounceMasterOff"));
   }
@@ -346,6 +446,8 @@ export function registerDamageAdvantage() {
 export const damageAdvantageApi = {
   toggleGlobal,
   isGlobal,
+  toggleMinimum,
+  isMinimum,
   get,
   toggle,
   clear,
