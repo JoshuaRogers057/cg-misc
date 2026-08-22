@@ -1,4 +1,5 @@
 import { MODULE_ID, SETTING, TOOL, debugLog } from "./constants.mjs";
+import { openTester } from "./dome-test.mjs";
 
 /**
  * Toggles in the token controls for the two world switches, so they can be flipped mid-combat
@@ -50,6 +51,17 @@ export function registerSceneControls() {
           onChange: (event, toggled) => game.settings.set(MODULE_ID, setting, toggled)
         };
       }
+
+      // A plain button rather than a toggle: it opens a window instead of holding state.
+      tokens.tools[TOOL.DOME_TEST] = {
+        name: TOOL.DOME_TEST,
+        title: "CGM.Dome.TestToolTitle",
+        icon: "fa-solid fa-vial",
+        button: true,
+        visible: game.user.isGM,
+        order: Object.keys(tokens.tools).length,
+        onChange: () => openTester()
+      };
 
       debugLog("registered scene control toggles");
     } catch (err) {

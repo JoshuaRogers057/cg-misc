@@ -166,6 +166,32 @@ Dome did.
 time it would drop to 0 hit points". Foundry has no mechanism for these, so the card states them
 and the table applies them.
 
+#### Testing the tables
+
+Waiting for a d100 to land on entry 73 is not a test plan. The **flask button in the token
+controls** (GM only) opens a tester listing every face of every table, colour-coded by whether
+it is automated, cosmetic, or a rule the table applies by hand. Clicking a face rolls exactly
+that result on the selected token.
+
+A forced roll is not a separate code path — it goes through the same function a real spell does,
+so what you see under test is what happens at the table.
+
+From a macro or the console:
+
+```js
+const api = game.modules.get("cg-misc").api.domeTest;
+await api.face("healing", 17);              // roll healing face 17 on the selected token
+await api.face("necromancy", 26, { apply: false });  // show it without applying it
+await api.report();                         // log a coverage audit of all four tables
+```
+
+| Method | |
+| --- | --- |
+| `open()` | The tester window. |
+| `face(trigger, n, {apply, actor})` | Roll one exact face. `apply: false` previews without applying. |
+| `audit(trigger)` | Every face with its status, without rolling anything. |
+| `report()` | Console table of all four tables and their coverage. |
+
 #### Customising the tables
 
 The four tables ship in the *CG Misc - Tables* compendium, so every server instance rolls on

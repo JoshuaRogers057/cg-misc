@@ -4,6 +4,7 @@ import { registerDamageAdvantage, damageAdvantageApi } from "./damage-advantage.
 import { registerDaeFields } from "./dae-integration.mjs";
 import { registerSceneControls } from "./scene-controls.mjs";
 import { registerDome, domeApi } from "./dome.mjs";
+import { domeTestApi } from "./dome-test.mjs";
 
 // Registered at evaluation time on purpose - see registerDaeFields for the ordering reason.
 registerDaeFields();
@@ -22,6 +23,7 @@ Hooks.once("init", () => {
   mod.api = {
     damageAdvantage: damageAdvantageApi,
     dome: domeApi,
+    domeTest: domeTestApi,
     // Shorthands for hotbar macros. The world switches are what get reached for at the table.
     toggleGlobal: damageAdvantageApi.toggleGlobal,
     toggleMinimum: damageAdvantageApi.toggleMinimum,

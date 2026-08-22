@@ -32,7 +32,7 @@ export function isDome() {
  * The table for a trigger. A world RollTable carrying the same flag wins over the shipped one,
  * so a GM can customise the results without editing the module or losing them on update.
  */
-async function resolveTable(trigger) {
+export async function resolveTable(trigger) {
   if (cache.has(trigger)) return cache.get(trigger);
 
   const world = game.tables?.find((t) => t.getFlag(MODULE_ID, FLAG.DOME_TABLE) === trigger);
@@ -75,7 +75,7 @@ export function classify(activity) {
  * a compendium document and never tries to write to the pack. `draw()` would, which is why it
  * is not used here; building the message by hand also lets the card say what caused the roll.
  */
-async function rollDomeTable(trigger, { actor, cause }) {
+async function rollDomeTable(trigger, { actor, cause, face = null, apply = true } = {}) {
   const table = await resolveTable(trigger);
   if (!table) {
     console.error(`${MODULE_ID} | No Dome table found for "${trigger}"`);
@@ -83,7 +83,10 @@ async function rollDomeTable(trigger, { actor, cause }) {
     return null;
   }
 
-  const { roll, results } = await table.roll();
+  // A forced face makes every entry reachable for testing. A constant formula survives the
+  // reroll inside RollTable#roll, so the requested face is exactly what comes back.
+  const forced = Number.isFinite(face) ? Roll.create(String(face)) : null;
+  const { roll, results } = await table.roll(forced ? { roll: forced } : {});
   const text = results.map((r) => r.description || r.name).filter(Boolean).join("<br>");
 
   debugLog(`dome: ${trigger} table rolled ${roll.total} for ${actor?.name ?? "unknown actor"} (${cause})`);
@@ -92,7 +95,7 @@ async function rollDomeTable(trigger, { actor, cause }) {
   // the table roll happened either way, and the GM needs to see what it was.
   let applied = "";
   try {
-    applied = await applyDomeResults(trigger, results, actor);
+    if (apply) applied = await applyDomeResults(trigger, results, actor);
   } catch (err) {
     console.error(`${MODULE_ID} | Rolled the ${trigger} table but could not apply the result`, err);
     ui.notifications?.warn(game.i18n.format("CGM.Dome.ApplyFailed", { module: MODULE_TITLE }));
@@ -109,7 +112,7 @@ async function rollDomeTable(trigger, { actor, cause }) {
     flags: { [MODULE_ID]: { dome: trigger, applied } }
   });
 
-  return results;
+  return { roll, results, applied };
 }
 
 /* -------------------------------------------- */

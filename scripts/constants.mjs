@@ -55,7 +55,8 @@ export const SETTING = {
 export const TOOL = {
   ADVANTAGE: "cgMiscDamageAdvantage",
   MINIMUM: "cgMiscDamageMinimum",
-  DOME: "cgMiscDome"
+  DOME: "cgMiscDome",
+  DOME_TEST: "cgMiscDomeTest"
 };
 
 /**

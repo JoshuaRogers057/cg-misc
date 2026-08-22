@@ -46,6 +46,10 @@ test("init exposes the documented API surface", () => {
   for (const method of ["toggle", "isActive", "roll", "classify"]) {
     assert.equal(typeof moduleEntry.api.dome[method], "function", `api.dome.${method} missing`);
   }
+
+  for (const method of ["open", "face", "audit", "report", "statusOf"]) {
+    assert.equal(typeof moduleEntry.api.domeTest[method], "function", `api.domeTest.${method} missing`);
+  }
 });
 
 test("the Dome's triggers are registered at init", () => {

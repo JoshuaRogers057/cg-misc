@@ -191,10 +191,13 @@ export class FakeRollTable {
     return this.flags?.[scope]?.[key];
   }
 
-  async roll() {
-    const roll = { total: this.total, formula: "1d100" };
-    const hit = this.results.filter((r) => this.total >= r.range[0] && this.total <= r.range[1]);
-    return { roll, results: hit };
+  async roll({ roll } = {}) {
+    // RollTable#roll rerolls whatever it is handed, which evaluates it; a constant formula
+    // keeps its value, and that is exactly how the tester forces a specific face.
+    if (roll && !Number.isFinite(roll.total)) await roll.evaluate();
+    const total = roll ? roll.total : this.total;
+    const hit = this.results.filter((r) => total >= r.range[0] && total <= r.range[1]);
+    return { roll: roll ?? { total, formula: this.formula ?? "1d100" }, results: hit };
   }
 }
 
@@ -207,6 +210,9 @@ export function resetApplied() {
 
 /** Actors the stub scene contains, used by findNearby. */
 export const scene = { nearby: [] };
+
+// `canvas` is always declared in Foundry, so `canvas?.` is safe there but a ReferenceError here.
+globalThis.canvas = { tokens: { controlled: [] } };
 
 globalThis.MidiQOL = {
   findNearby: (disposition, token, range) =>
@@ -238,13 +244,16 @@ globalThis.Roll = Object.assign(
     return {
       formula,
       async evaluate() {
-        // Deterministic: every die shows its face count, so totals are predictable in tests.
-        this.total = [...formula.matchAll(/(\d+)d(\d+)/g)].reduce((sum, m) => sum + Number(m[1]) * Number(m[2]), 0);
+        // Deterministic: every die shows its face count, then all remaining numbers are summed,
+        // so "1d8" is 8, "2d6 + 3" is 15, and a constant like "17" is itself.
+        const maxed = formula.replace(/(\d+)d(\d+)/g, (_, n, m) => String(Number(n) * Number(m)));
+        this.total = [...maxed.matchAll(/\d+/g)].reduce((sum, m) => sum + Number(m[0]), 0);
         return this;
       }
     };
   },
-  globalThis.Roll
+  globalThis.Roll,
+  { create: (formula) => new globalThis.Roll(formula) }
 );
 
 globalThis.game.tables = state.worldTables;
