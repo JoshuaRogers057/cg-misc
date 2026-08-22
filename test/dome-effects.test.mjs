@@ -56,7 +56,7 @@ test("coverage is reported honestly", () => {
   }
 
   assert.deepEqual(counts.healing, { total: 40, cosmetic: 6, automated: 32 });
-  assert.deepEqual(counts.necromancy, { total: 40, cosmetic: 18, automated: 17 });
+  assert.deepEqual(counts.necromancy, { total: 40, cosmetic: 18, automated: 19 });
 });
 
 /* -------------------------------------------- */
@@ -227,7 +227,7 @@ test("an area result with no token on the scene degrades quietly", async () => {
 test("the rest and wild magic tables are deliberately not automated", () => {
   assert.ok(!DOME_EFFECTS.rest, "rest mutations are permanent cosmetic changes");
   assert.ok(!DOME_EFFECTS.wild, "the wild magic table was not part of this scope");
-  assert.equal(Object.keys(HEALING_EFFECTS).length + Object.keys(NECROMANCY_EFFECTS).length, 49);
+  assert.equal(Object.keys(HEALING_EFFECTS).length + Object.keys(NECROMANCY_EFFECTS).length, 51);
 });
 
 /* -------------------------------------------- */
@@ -263,7 +263,11 @@ test("native dnd5e keys are ones the system really has", () => {
     "system.attributes.movement.walk",
     "system.traits.dv.value",
     "system.traits.dr.value",
-    `flags.cg-misc.halveHealing`
+    "system.bonuses.mwak.damage",
+    "system.bonuses.rwak.damage",
+    "system.bonuses.msak.damage",
+    "system.bonuses.rsak.damage",
+    "flags.cg-misc.halveHealing"
   ];
 
   for (const registry of Object.values(DOME_EFFECTS)) {

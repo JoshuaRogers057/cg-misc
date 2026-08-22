@@ -151,8 +151,8 @@ Healing and necromancy results **apply themselves**. Of the 80 results across th
 | | Healing | Necromancy |
 | --- | --- | --- |
 | Cosmetic — text only | 6 | 18 |
-| **Automated** | **32** | **17** |
-| Text only (see below) | 2 | 5 |
+| **Automated** | **32** | **19** |
+| Text only (see below) | 2 | 3 |
 
 Effects, damage, healing, conditions and exhaustion are applied automatically. Necromancy area
 results find every creature in range and damage them through resistances and immunities. Saving
@@ -162,7 +162,7 @@ whoever was targeted when the spell was cast, falling back to the caster.
 The card reports what was applied underneath the result text, so it's always visible what the
 Dome did.
 
-**Seven results are text only** — a skipped turn, "the next spell needs no components", "the next
+**Five results are text only** — a skipped turn, "the next spell needs no components", "the next
 time it would drop to 0 hit points". Foundry has no mechanism for these, so the card states them
 and the table applies them.
 

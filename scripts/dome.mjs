@@ -1,5 +1,6 @@
 import { MODULE_ID, MODULE_TITLE, SETTING, FLAG, PACK, DOME, DOME_TABLE_ID, debugLog } from "./constants.mjs";
 import { applyDomeResults, registerDomeHealingModifier } from "./dome-apply.mjs";
+import { registerDomeTriggers } from "./dome-triggers.mjs";
 
 /**
  * The Dome: while it is up, magic and rest inside it warp.
@@ -149,6 +150,7 @@ async function onRestCompleted(actor, result, config) {
 export function registerDome() {
   Hooks.on("dnd5e.postUseActivity", (activity) => onUseActivity(activity));
   registerDomeHealingModifier();
+  registerDomeTriggers();
   Hooks.on("dnd5e.restCompleted", (actor, result, config) => onRestCompleted(actor, result, config));
 
   // A customised world table can appear or vanish at any time, so never trust a stale lookup.

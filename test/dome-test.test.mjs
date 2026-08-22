@@ -74,7 +74,7 @@ test("the audit counts match the shipped tables", async () => {
   const necromancy = await freshAudit("necromancy");
 
   assert.deepEqual(healing.counts, { automated: 32, cosmetic: 6, manual: 2 });
-  assert.deepEqual(necromancy.counts, { automated: 17, cosmetic: 18, manual: 5 });
+  assert.deepEqual(necromancy.counts, { automated: 19, cosmetic: 18, manual: 3 });
 });
 
 test("the wild magic and rest tables report as unautomated, not as broken", async () => {
@@ -93,7 +93,15 @@ test("status is derived from the registry, then the cosmetic marker", () => {
 });
 
 test("testing a face rolls that exact result", async () => {
-  const actor = { name: "Dummy", uuid: "Actor.dummy", id: "dummy", getActiveTokens: () => [] };
+  // Face 17 adds exhaustion, so the stub needs update() or the applier logs a caught error.
+  const actor = {
+    name: "Dummy",
+    uuid: "Actor.dummy",
+    id: "dummy",
+    system: { attributes: { exhaustion: 0 } },
+    getActiveTokens: () => [],
+    update: async () => {}
+  };
   canvas.tokens.controlled = [{ actor }];
 
   const raw = JSON.parse(fs.readFileSync(new URL(SOURCES.healing, SRC), "utf8"));

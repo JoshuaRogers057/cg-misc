@@ -44,6 +44,22 @@ const grantsDis = (path) => flag(`grants.disadvantage.${path}`);
 /** Initiative has its own midi flag; it is not treated as a Dexterity check. */
 const initiativeDis = () => flag("initiativeDisadv");
 
+/**
+ * Disadvantage on concentration saves, which needs two flags because there are two paths.
+ *
+ * The sheet's concentration button calls Actor#rollConcentration, which routes through
+ * rollSavingThrow with "concentration" in hookNames; midi maps that to its concentration roll
+ * type and reads `disadvantage.concentration`.
+ *
+ * A concentration check caused by taking damage does not go that way at all. midi builds a
+ * synthetic feat with a save activity (doConcentrationCheck), so the roll arrives as an ordinary
+ * saving throw and `disadvantage.concentration` is never consulted - which is why the first
+ * attempt at this result appeared on the token and did nothing. midi does expose
+ * `isConcentrationCheck` to condition evaluation, so a save-wide flag conditioned on it covers
+ * the damage path without touching ordinary saving throws.
+ */
+const disConcentration = () => [flag("disadvantage.concentration"), flag("disadvantage.save.all", "isConcentrationCheck")];
+
 /** Charisma-based skills, so "Disadvantage on Charisma checks" covers the skills too. */
 const CHA_SKILLS = ["dec", "itm", "prf", "per"];
 const disCharisma = () => [dis("check.cha"), ...CHA_SKILLS.map((s) => dis(`skill.${s}`))];
@@ -107,18 +123,31 @@ const TURN_START = { specialDuration: ["turnStart"] };
  * @param {object[]} changes
  * @param {object} duration  A Foundry duration, or {roundsFormula} for a rolled one.
  * @param {object} [dae]     DAE flags, e.g. TURN_END.
+ * @param {object} [own]     This module's own flags, e.g. {expireOnAttacked: true}, which
+ *                           dome-triggers.mjs acts on. DAE and times-up implement only
+ *                           turn-based special durations, so event-driven expiry lives here.
  */
-function eff(name, changes, duration = {}, dae = {}) {
+function eff(name, changes, duration = {}, dae = {}, own = {}) {
   return {
     effect: {
       name,
       img: "icons/svg/daze.svg",
       duration,
       changes,
-      flags: { [MODULE_ID]: { dome: true }, dae: { ...dae } }
+      flags: { [MODULE_ID]: { dome: true, ...own }, dae: { ...dae } }
     }
   };
 }
+
+/** Extra damage on every attack the wearer makes, whatever its kind. */
+const ATTACK_KINDS = ["mwak", "rwak", "msak", "rsak"];
+const damageBonus = (formula) =>
+  ATTACK_KINDS.map((kind) => ({
+    key: `system.bonuses.${kind}.damage`,
+    mode: MODE.ADD,
+    value: formula,
+    priority: 20
+  }));
 
 /** A spec with no mechanical change beyond a named, tracked marker. */
 const marker = (name, duration, dae) => eff(name, [], duration, dae);
@@ -141,7 +170,7 @@ const randomNearby = (range, spec) => ({ ...spec, area: { range, disposition: nu
 
 /** Results land on the healed creature: the spell's targets, or the caster if none. */
 export const HEALING_EFFECTS = {
-  "89KtRcT5elUyLahg": eff("Burning Pain", [dis("concentration")], minutes(1)),
+  "89KtRcT5elUyLahg": eff("Burning Pain", disConcentration(), minutes(1)),
   sFbReEjmdEnQtHb0: marker("Coughing Blood (no Verbal components)", rolledRounds("1d4")),
   zq38gDgR8SGcDCCA: eff("Crystalline Flesh", [vulnerable("bludgeoning")], minutes(1)),
   p7rdHvYUD0cKhWFv: eff("Ice in the Veins", [speedAdd(-10)], minutes(1)),
@@ -163,7 +192,7 @@ export const HEALING_EFFECTS = {
   "8rmkxH3kdekU7Cw9": eff("Seeping Blood", [speedHalf()], minutes(1)),
   mR8ZJ1Bb3KrgHHPB: eff("Harsh Croak", disCharisma(), hours(1)),
   PScKsxFhvEH28TJ7: eff("Paper Skin", [vulnerable("bludgeoning")], {}, TURN_START),
-  Rt8gZtz5Ixjdkugm: eff("Writhing Flesh", [dis("concentration")], minutes(1)),
+  Rt8gZtz5Ixjdkugm: eff("Writhing Flesh", disConcentration(), minutes(1)),
   IrW8V22JZ38Bn8rV: eff("Nervous Stutter", disCharisma(), hours(1)),
   AwrPWZ9gSYShqfcZ: eff("Stench of Burning Flesh", [dis("skill.ste")], hours(1)),
   // "Disadvantage on its next Initiative roll" - initiative is its own flag, not a Dex check.
@@ -184,7 +213,7 @@ export const HEALING_EFFECTS = {
 
 /** Results land on the caster, or radiate from them. */
 export const NECROMANCY_EFFECTS = {
-  qPcCwml9OrLanALX: eff("Shadow Armor", [grantsDis("attack.all")], {}, TURN_END),
+  qPcCwml9OrLanALX: eff("Shadow Armor", [grantsDis("attack.all")], {}, TURN_END, { expireOnAttacked: true }),
   cd0ZWXuBs18iAxKE: area(20, damage("1d6", "cold")),
   nn61gdfwawNrOYhP: area(10, damage("1d8", "necrotic")),
   rSxBSvDkJDd0WcjT: randomNearby(30, damage("1d4", "necrotic")),
@@ -203,7 +232,12 @@ export const NECROMANCY_EFFECTS = {
   q0JfG5kb5oSJDE5R: area(10, damage("2d4", "fire")),
   EJWTpunnfW1mQKRq: area(30, { ...damage("1d4", "fire"), woundedOnly: true }),
   uKGBWTdpMSqLIaVC: area(10, damage("1d4", "cold")),
-  rJaQ1BJuWuM6W2ez: eff("Spectral Guardian", [grantsDis("attack.all")], {}, TURN_END),
+  rJaQ1BJuWuM6W2ez: eff("Spectral Guardian", [grantsDis("attack.all")], {}, TURN_END, { expireOnAttacked: true }),
+  // "The next successful attack ... deals an additional 1d4 Necrotic damage."
+  dVybL2CBBpUYUUv0: eff("Necrotic Wreath", damageBonus("1d4[necrotic]"), {}, TURN_END, { expireOnHit: true }),
+  // "The next damaging spell ... restores Hit Points equal to half the damage dealt to one
+  // creature." Paid out in dome-triggers.mjs once the damage is known.
+  rqSNP2mTGQOxBNtl: eff("Necromantic Hunger", [], {}, TURN_END, { necroticHunger: true }),
   QGMVk4iGT96QtIEC: area(10, {
     ...damage("1d4", "bludgeoning"),
     save: { ability: "str", dc: 12, onFail: condition("prone") }

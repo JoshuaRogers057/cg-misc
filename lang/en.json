@@ -43,6 +43,7 @@
   "CGM.Dome.TestNoTables": "No Dome tables could be loaded. Check that the module's compendium is available.",
   "CGM.Dome.TestFailed": "Testing face {face} failed. See the console for details.",
   "CGM.Dome.HalvedHealing": "Swollen Veins (healing halved)",
+  "CGM.Dome.HungerFed": "Necromantic hunger feeds: {name} regains {amount} Hit Points.",
   "CGM.DamageAdvantage.GMOnly": "Only a GM can change the world-wide damage switches.",
   "CGM.DamageAdvantage.Error": "{module} failed to apply damage advantage to this roll. The roll itself is unaffected. See the console for details.",
   "CGM.DamageAdvantage.NoActor": "Select a token or pass an actor to toggle damage advantage.",
