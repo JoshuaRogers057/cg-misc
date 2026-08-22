@@ -231,12 +231,17 @@ globalThis.MidiQOL = {
   }
 };
 
+// These are dnd5e 5.3.3's real condition ids. The stub previously used "blind", which agreed
+// with a bug in the registry and let a broken result pass its test.
+export const DND5E_CONDITION_IDS = [
+  "bleeding", "blinded", "burning", "charmed", "cursed", "deafened", "diseased", "exhaustion",
+  "frightened", "grappled", "incapacitated", "invisible", "paralyzed", "petrified", "poisoned",
+  "prone", "restrained", "silenced", "stunned", "unconscious"
+];
+
 globalThis.CONFIG = {
-  statusEffects: [
-    { id: "blind", name: "Blinded", img: "b.svg" },
-    { id: "frightened", name: "Frightened", img: "f.svg" },
-    { id: "prone", name: "Prone", img: "p.svg" }
-  ]
+  statusEffects: DND5E_CONDITION_IDS.map((id) => ({ id, name: id, img: `${id}.svg` })),
+  DND5E: { healingTypes: { healing: {}, temphp: {} } }
 };
 
 globalThis.Roll = Object.assign(

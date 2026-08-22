@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-import { applied, resetApplied, scene, state } from "./foundry-stubs.mjs";
+import { applied, resetApplied, scene, state, DND5E_CONDITION_IDS } from "./foundry-stubs.mjs";
 import { DOME_EFFECTS, HEALING_EFFECTS, NECROMANCY_EFFECTS } from "../scripts/dome-effects.mjs";
 import { applyDomeResults } from "../scripts/dome-apply.mjs";
 
@@ -38,7 +38,7 @@ test("no cosmetic result is automated", () => {
 });
 
 test("every automated spec does something", () => {
-  const verbs = ["effect", "damage", "healing", "status", "exhaust", "save"];
+  const verbs = ["effect", "damage", "healing", "status", "exhaust", "save", "halveHealing"];
   for (const [trigger, registry] of Object.entries(DOME_EFFECTS)) {
     for (const [id, spec] of Object.entries(registry)) {
       assert.ok(verbs.some((v) => v in spec), `${trigger}: spec ${id} has no effect at all`);
@@ -55,7 +55,7 @@ test("coverage is reported honestly", () => {
     counts[trigger] = { total: results.length, cosmetic, automated: Object.keys(registry).length };
   }
 
-  assert.deepEqual(counts.healing, { total: 40, cosmetic: 6, automated: 31 });
+  assert.deepEqual(counts.healing, { total: 40, cosmetic: 6, automated: 32 });
   assert.deepEqual(counts.necromancy, { total: 40, cosmetic: 18, automated: 17 });
 });
 
@@ -67,8 +67,13 @@ function makeActor({ name = "Caster", uuid = "Actor.caster", hp = { value: 10, m
   const actor = {
     name,
     uuid,
+    isOwner: true,
     system: { attributes: { hp, exhaustion: 0 } },
     getActiveTokens: () => [{ actor }],
+    createEmbeddedDocuments: async (_type, effects) => {
+      applied.effects.push({ actorUuid: uuid, effects });
+      return effects.map((e, i) => ({ ...e, id: `eff${i}` }));
+    },
     applyDamage: async (parts) => applied.healing.push({ uuid, value: parts[0].value }),
     update: async (data) => applied.exhaustion.push({ uuid, level: data["system.attributes.exhaustion"] }),
     rollSavingThrow: async ({ ability, target }) => {
@@ -129,7 +134,7 @@ test("a condition is applied as a status effect", async () => {
 
   await applyDomeResults("healing", results("healing", "sOGy2iBUuGgNZaIx"), caster);
 
-  assert.deepEqual(applied.effects[0].effects[0].statuses, ["blind"]);
+  assert.deepEqual(applied.effects[0].effects[0].statuses, ["blinded"]);
 });
 
 test("necromancy area damage hits everyone nearby and never the caster", async () => {
@@ -222,5 +227,143 @@ test("an area result with no token on the scene degrades quietly", async () => {
 test("the rest and wild magic tables are deliberately not automated", () => {
   assert.ok(!DOME_EFFECTS.rest, "rest mutations are permanent cosmetic changes");
   assert.ok(!DOME_EFFECTS.wild, "the wild magic table was not part of this scope");
-  assert.equal(Object.keys(HEALING_EFFECTS).length + Object.keys(NECROMANCY_EFFECTS).length, 48);
+  assert.equal(Object.keys(HEALING_EFFECTS).length + Object.keys(NECROMANCY_EFFECTS).length, 49);
+});
+
+/* -------------------------------------------- */
+/*  Regressions from live play                  */
+/* -------------------------------------------- */
+
+test("every midi flag key uses a path midi actually registers", () => {
+  // midi registers disadvantage.save.<abl> and disadvantage.check.<abl>; an "ability." segment
+  // on a per-ability flag is silently inert, which is how nine results shipped broken.
+  const legal = [
+    /^flags\.midi-qol\.(dis)?advantage\.(save|check)\.[a-z]{3}$/,
+    /^flags\.midi-qol\.(dis)?advantage\.skill\.[a-z]{3}$/,
+    /^flags\.midi-qol\.(dis)?advantage\.(attack|ability)\.[a-z]+$/,
+    /^flags\.midi-qol\.(dis)?advantage\.concentration$/,
+    /^flags\.midi-qol\.(dis)?advantage\.all$/,
+    /^flags\.midi-qol\.grants\.(dis)?advantage\.attack\.[a-z]+$/,
+    /^flags\.midi-qol\.initiative(Adv|Disadv)$/
+  ];
+
+  for (const [trigger, registry] of Object.entries(DOME_EFFECTS)) {
+    for (const [id, spec] of Object.entries(registry)) {
+      for (const change of spec.effect?.changes ?? []) {
+        if (!change.key.startsWith("flags.midi-qol.")) continue;
+        assert.ok(legal.some((re) => re.test(change.key)), `${trigger} ${id}: bad midi key ${change.key}`);
+      }
+    }
+  }
+});
+
+test("native dnd5e keys are ones the system really has", () => {
+  // system.traits.dr.all does not exist in dnd5e; resistance means naming each damage type.
+  const legal = [
+    "system.attributes.movement.walk",
+    "system.traits.dv.value",
+    "system.traits.dr.value",
+    `flags.cg-misc.halveHealing`
+  ];
+
+  for (const registry of Object.values(DOME_EFFECTS)) {
+    for (const spec of Object.values(registry)) {
+      for (const change of spec.effect?.changes ?? []) {
+        if (change.key.startsWith("flags.midi-qol.")) continue;
+        assert.ok(legal.includes(change.key), `bad native key ${change.key}`);
+      }
+    }
+  }
+});
+
+test("every status used is a real dnd5e condition id", () => {
+  for (const registry of Object.values(DOME_EFFECTS)) {
+    for (const spec of Object.values(registry)) {
+      for (const s of [spec.status, spec.save?.onFail?.status]) {
+        if (s) assert.ok(DND5E_CONDITION_IDS.includes(s), `"${s}" is not a dnd5e condition`);
+      }
+    }
+  }
+});
+
+test("resistance to all damage names every damage type", async () => {
+  const caster = makeActor({ uuid: "Actor.cleric" });
+  await applyDomeResults("healing", results("healing", "0bSXCu9OSKzLG539"), caster);
+
+  const changes = applied.effects[0].effects[0].changes;
+  assert.equal(changes.length, 13);
+  assert.ok(changes.every((c) => c.key === "system.traits.dr.value"));
+});
+
+test("a rolled duration is resolved to a number of rounds", async () => {
+  const caster = makeActor({ uuid: "Actor.cleric" });
+  await applyDomeResults("healing", results("healing", "sFbReEjmdEnQtHb0"), caster);
+
+  const duration = applied.effects[0].effects[0].duration;
+  assert.equal(duration.rounds, 4, "1d4 maximised by the deterministic stub");
+  assert.ok(!("roundsFormula" in duration), "the formula must not reach Foundry");
+});
+
+test("Blinded uses the dnd5e condition id and actually applies", async () => {
+  const caster = makeActor({ uuid: "Actor.cleric" });
+  await applyDomeResults("healing", results("healing", "sOGy2iBUuGgNZaIx"), caster);
+
+  assert.equal(applied.effects.length, 1);
+  assert.deepEqual(applied.effects[0].effects[0].statuses, ["blinded"]);
+});
+
+test("the Painful Light burst is centred on the healed creature and includes them", async () => {
+  const cleric = makeActor({ name: "Cleric", uuid: "Actor.cleric" });
+  const patient = makeActor({ name: "Patient", uuid: "Actor.patient" });
+  const bystander = makeActor({ name: "Bystander", uuid: "Actor.bystander" });
+
+  state.userTargets = [{ actor: patient }];
+  // Positioned around the patient, not the cleric.
+  scene.nearby = [
+    { ...bystander, distance: 5 },
+    { ...cleric, distance: 100 }
+  ];
+
+  await applyDomeResults("healing", results("healing", "xKitS3VcaCWNq4ba"), cleric);
+
+  const hit = applied.effects.map((e) => e.actorUuid);
+  assert.ok(hit.includes("Actor.patient"), "the healed creature is inside its own burst");
+  assert.ok(hit.includes("Actor.bystander"));
+  assert.ok(!hit.includes("Actor.cleric"), "the distant caster is not caught");
+});
+
+test("halved healing applies a flag and the hook halves incoming healing", async () => {
+  const { registerDomeHealingModifier } = await import("../scripts/dome-apply.mjs");
+  const { hooks } = await import("./foundry-stubs.mjs");
+  registerDomeHealingModifier();
+
+  const caster = makeActor({ uuid: "Actor.cleric" });
+  await applyDomeResults("healing", results("healing", "0DBeNvLtlvRvrar6"), caster);
+
+  assert.equal(applied.effects[0].effects[0].changes[0].key, "flags.cg-misc.halveHealing");
+
+  const flagged = { flags: { "cg-misc": { halveHealing: true } } };
+  const damages = [{ type: "healing", value: 9 }, { type: "fire", value: 9 }];
+  hooks.get("dnd5e.preCalculateDamage")(flagged, damages);
+
+  assert.equal(damages[0].value, 4, "healing is halved");
+  assert.equal(damages[1].value, 9, "damage is untouched");
+});
+
+test("Charisma disadvantage covers the Charisma skills too", async () => {
+  const caster = makeActor({ uuid: "Actor.cleric" });
+  await applyDomeResults("healing", results("healing", "mR8ZJ1Bb3KrgHHPB"), caster);
+
+  const keys = applied.effects[0].effects[0].changes.map((c) => c.key);
+  assert.ok(keys.includes("flags.midi-qol.disadvantage.check.cha"));
+  for (const skill of ["dec", "itm", "prf", "per"]) {
+    assert.ok(keys.includes(`flags.midi-qol.disadvantage.skill.${skill}`), `missing ${skill}`);
+  }
+});
+
+test("the Initiative result uses the initiative flag, not a Dexterity check", async () => {
+  const caster = makeActor({ uuid: "Actor.cleric" });
+  await applyDomeResults("healing", results("healing", "6byFypfW3XN8cwzC"), caster);
+
+  assert.equal(applied.effects[0].effects[0].changes[0].key, "flags.midi-qol.initiativeDisadv");
 });

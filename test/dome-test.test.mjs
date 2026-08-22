@@ -73,7 +73,7 @@ test("the audit counts match the shipped tables", async () => {
   const healing = await freshAudit("healing");
   const necromancy = await freshAudit("necromancy");
 
-  assert.deepEqual(healing.counts, { automated: 31, cosmetic: 6, manual: 3 });
+  assert.deepEqual(healing.counts, { automated: 32, cosmetic: 6, manual: 2 });
   assert.deepEqual(necromancy.counts, { automated: 17, cosmetic: 18, manual: 5 });
 });
 
