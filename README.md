@@ -141,6 +141,12 @@ Raising or lowering it announces to chat, so the table knows the rules just chan
 affected**, monsters included. Short rests roll **once per resting character**, so each one gets
 their own mutation. Long rests do nothing.
 
+**One roll per cast.** A single spell can activate several times — Magic Missile fires once per
+missile, and a sustained spell re-activates every time it ticks. The Dome rolls only for the
+activation that actually pays for the spell (spends a slot, or begins concentration), so a
+three-missile volley rolls once and a concentration spell rolls when cast rather than every
+round.
+
 A spell that is both healing and necromancy — False Life, say — rolls **once**, on the healing
 table. Healing is checked first, matching the order the triggers are listed above.
 

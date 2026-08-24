@@ -120,12 +120,37 @@ async function rollDomeTable(trigger, { actor, cause, face = null, apply = true 
 /*  Triggers                                    */
 /* -------------------------------------------- */
 
-async function onUseActivity(activity) {
+/**
+ * Whether this activation is a spell actually being cast, rather than one of the follow-on
+ * activity uses that dnd5e also fires `postUseActivity` for.
+ *
+ * One cast can produce several activations: Magic Missile fires one per missile, and a sustained
+ * spell re-activates every time it ticks. Rolling on each of those is what made the Dome fire
+ * repeatedly for a single cast.
+ *
+ * Spending a spell slot is the discriminator - the cast pays for the spell, the follow-ups do
+ * not. `Activity#consume` writes the slot into `results.updates.actor` as
+ * `system.spells.<slot>.value`. Beginning concentration counts too, so a leveled spell cast
+ * without a slot still registers when it is the kind that gets sustained.
+ */
+export function isFreshCast(usageConfig, results) {
+  const actorUpdates = results?.updates?.actor ?? {};
+  if (Object.keys(actorUpdates).some((key) => /^system\.spells\..+\.value$/.test(key))) return true;
+
+  return usageConfig?.concentration?.begin === true;
+}
+
+async function onUseActivity(activity, usageConfig, results) {
   try {
     if (!isDome()) return;
 
     const trigger = classify(activity);
     if (!trigger) return;
+
+    if (!isFreshCast(usageConfig, results)) {
+      debugLog(`dome: ${activity.item?.name} activated without spending a slot - not a fresh cast`);
+      return;
+    }
 
     await rollDomeTable(trigger, { actor: activity.actor, cause: activity.item.name });
   } catch (err) {
@@ -148,7 +173,7 @@ async function onRestCompleted(actor, result, config) {
 }
 
 export function registerDome() {
-  Hooks.on("dnd5e.postUseActivity", (activity) => onUseActivity(activity));
+  Hooks.on("dnd5e.postUseActivity", (activity, usageConfig, results) => onUseActivity(activity, usageConfig, results));
   registerDomeHealingModifier();
   registerDomeTriggers();
   Hooks.on("dnd5e.restCompleted", (actor, result, config) => onRestCompleted(actor, result, config));
@@ -174,4 +199,4 @@ export async function toggleDome(force) {
   return value;
 }
 
-export const domeApi = { toggle: toggleDome, isActive: isDome, roll: rollDomeTable, classify };
+export const domeApi = { toggle: toggleDome, isActive: isDome, roll: rollDomeTable, classify, isFreshCast };

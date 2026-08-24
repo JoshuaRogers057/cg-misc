@@ -43,7 +43,7 @@ test("init exposes the documented API surface", () => {
   }
   assert.equal(api.key, "flags.cg-misc.damageAdvantage", "the effect key is part of the public surface");
 
-  for (const method of ["toggle", "isActive", "roll", "classify"]) {
+  for (const method of ["toggle", "isActive", "roll", "classify", "isFreshCast"]) {
     assert.equal(typeof moduleEntry.api.dome[method], "function", `api.dome.${method} missing`);
   }
 

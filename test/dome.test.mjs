@@ -9,6 +9,13 @@ registerSettings();
 registerDome();
 
 const onUseActivity = hooks.get("dnd5e.postUseActivity");
+
+/**
+ * A real cast spends a spell slot, which is how the Dome tells an actual casting apart from the
+ * follow-on activations of the same spell.
+ */
+const SLOT_SPENT = { updates: { actor: { "system.spells.spell1.value": 2 } } };
+const cast = (activity, usageConfig = {}, results = SLOT_SPENT) => onUseActivity(activity, usageConfig, results);
 const onRestCompleted = hooks.get("dnd5e.restCompleted");
 const invalidateTables = hooks.get("createRollTable");
 
@@ -59,48 +66,48 @@ test.beforeEach(() => {
 
 test("with the Dome down, nothing rolls", async () => {
   state.settings["cg-misc.dome"] = false;
-  await onUseActivity(spell());
+  await cast(spell());
 
   assert.equal(state.messages.length, 0);
 });
 
 test("a leveled healing spell rolls the healing table", async () => {
-  await onUseActivity(spell({ type: "heal", school: "evo", name: "Cure Wounds" }));
+  await cast(spell({ type: "heal", school: "evo", name: "Cure Wounds" }));
 
   assert.equal(lastTrigger(), "healing");
 });
 
 test("a leveled necromancy spell rolls the necromancy table", async () => {
-  await onUseActivity(spell({ school: "nec", name: "Blight" }));
+  await cast(spell({ school: "nec", name: "Blight" }));
 
   assert.equal(lastTrigger(), "necromancy");
 });
 
 test("any other leveled spell rolls the wild magic table", async () => {
-  await onUseActivity(spell({ school: "evo", name: "Fireball" }));
+  await cast(spell({ school: "evo", name: "Fireball" }));
 
   assert.equal(lastTrigger(), "wild");
 });
 
 test("cantrips are exempt whatever their school", async () => {
   for (const school of ["evo", "nec"]) {
-    await onUseActivity(spell({ level: 0, school, name: "Chill Touch" }));
+    await cast(spell({ level: 0, school, name: "Chill Touch" }));
   }
-  await onUseActivity(spell({ level: 0, type: "heal", name: "Spare the Dying" }));
+  await cast(spell({ level: 0, type: "heal", name: "Spare the Dying" }));
 
   assert.equal(state.messages.length, 0, "a d100 per cantrip would drown the chat log");
 });
 
 test("non-spell items never trigger the Dome", async () => {
-  await onUseActivity({ type: "attack", actor, item: { type: "weapon", name: "Longsword", system: {} } });
-  await onUseActivity({ type: "heal", actor, item: { type: "consumable", name: "Potion", system: {} } });
+  await cast({ type: "attack", actor, item: { type: "weapon", name: "Longsword", system: {} } });
+  await cast({ type: "heal", actor, item: { type: "consumable", name: "Potion", system: {} } });
 
   assert.equal(state.messages.length, 0);
 });
 
 test("a spell that both heals and is necromancy rolls healing, once", async () => {
   // Documented precedence: healing is checked first, matching the order the triggers were given.
-  await onUseActivity(spell({ type: "heal", school: "nec", name: "False Life" }));
+  await cast(spell({ type: "heal", school: "nec", name: "False Life" }));
 
   assert.equal(state.messages.length, 1, "one roll, not one per matching trigger");
   assert.equal(lastTrigger(), "healing");
@@ -108,7 +115,7 @@ test("a spell that both heals and is necromancy rolls healing, once", async () =
 
 test("the Dome covers every actor, monsters included", async () => {
   const lich = { id: "npc1", name: "Lich", type: "npc" };
-  await onUseActivity({ type: "damage", actor: lich, item: { type: "spell", name: "Finger of Death", system: { level: 7, school: "nec" } } });
+  await cast({ type: "damage", actor: lich, item: { type: "spell", name: "Finger of Death", system: { level: 7, school: "nec" } } });
 
   assert.equal(lastTrigger(), "necromancy");
 });
@@ -134,7 +141,7 @@ test("long rests do not trigger the Dome", async () => {
 });
 
 test("the posted card carries the result text and the roll", async () => {
-  await onUseActivity(spell());
+  await cast(spell());
   const message = state.messages.at(-1);
 
   assert.match(message.content, /wild result/);
@@ -154,7 +161,7 @@ test("a world table with the same flag overrides the shipped one", async () => {
   );
   invalidateTables();
 
-  await onUseActivity(spell());
+  await cast(spell());
 
   assert.match(state.messages.at(-1).content, /house result/);
 });
@@ -163,7 +170,7 @@ test("a missing table reports an error instead of throwing", async () => {
   state.packTables.clear();
   invalidateTables();
 
-  await assert.doesNotReject(() => onUseActivity(spell()));
+  await assert.doesNotReject(() => cast(spell()));
   assert.equal(state.notifications.at(-1)?.[0], "error");
   assert.equal(state.messages.length, 0);
 });
@@ -192,4 +199,52 @@ test("classify is exported so the triggers can be reasoned about directly", () =
   assert.equal(classify(spell()), "wild");
   assert.equal(classify(spell({ level: 0 })), "");
   assert.equal(classify(null), "");
+});
+
+/* -------------------------------------------- */
+/*  One roll per cast                           */
+/* -------------------------------------------- */
+
+test("a multi-part spell rolls once for the cast, not once per part", async () => {
+  // Magic Missile fires an activation per missile. Only the one that paid for the spell counts.
+  const missile = spell({ name: "Magic Missile" });
+
+  await cast(missile);
+  await onUseActivity(missile, {}, { updates: {} });
+  await onUseActivity(missile, {}, { updates: {} });
+  await onUseActivity(missile, {}, { updates: {} });
+
+  assert.equal(state.messages.length, 1, "three follow-on missiles must not roll again");
+});
+
+test("a sustained spell re-applying does not roll again", async () => {
+  const sustained = spell({ name: "Spirit Guardians" });
+
+  await cast(sustained, { concentration: { begin: true } }, { updates: {} });
+  assert.equal(state.messages.length, 1, "the cast itself rolls");
+
+  // Each later tick re-activates the activity without paying for it.
+  for (let i = 0; i < 3; i++) await onUseActivity(sustained, {}, { updates: {} });
+
+  assert.equal(state.messages.length, 1, "ticks must not roll");
+});
+
+test("beginning concentration counts as a cast even with no slot spent", async () => {
+  await onUseActivity(spell({ name: "Innate Hex" }), { concentration: { begin: true } }, { updates: {} });
+
+  assert.equal(state.messages.length, 1);
+});
+
+test("an activation that pays for nothing is ignored", async () => {
+  await onUseActivity(spell(), {}, { updates: { actor: { "system.attributes.hp.value": 5 } } });
+
+  assert.equal(state.messages.length, 0, "an unrelated actor update is not a spell slot");
+});
+
+test("casting the same spell twice rolls twice", async () => {
+  // The guard keys on paying for the spell, not on time, so a genuine second cast still rolls.
+  await cast(spell());
+  await cast(spell());
+
+  assert.equal(state.messages.length, 2);
 });
